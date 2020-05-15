@@ -78,7 +78,7 @@ create table visits(
     on delete cascade,
     constraint fk_visitAtr foreign key(attraction_id) references attractions(attraction_id)
     on delete cascade,
-    constraint pk_ primary key(arrival_time, tourist_id, attraction_id),
+    constraint pk_visit primary key(arrival_time, tourist_id, attraction_id),
     constraint departAfterArrival check(arrival_time - departure_time > interval '0' second)
 );
 
