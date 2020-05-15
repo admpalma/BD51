@@ -15,6 +15,9 @@ drop table employee_speaks cascade constraints;
 drop table attractions cascade constraints;
 drop table schedules cascade constraints;
 drop table schedules_of cascade constraints;
+drop sequence seq_tour_id;
+drop sequence seq_attr_id;
+drop sequence seq_pic_id;
 
 
 create table attractions(
@@ -25,9 +28,9 @@ create table attractions(
     attraction_descr varchar2(530) not null,
     attraction_phone varchar2(13) not null,
     attraction_website varchar2(2000) not null,
-    primary key(attraction_id),
-    check(latitude <= 90 and latitude >= -90
-		and longitude <= 180 and longitude >= -180)
+    constraint pk_attraction primary key(attraction_id),
+    constraint latitudeLimit check(latitude <= 90 and latitude >= -90),
+    constraint longitudeLimit check(longitude <= 180 and longitude >= -180)
 );
 
 create table pictures(
@@ -36,21 +39,24 @@ create table pictures(
     picture_date timestamp(6) not null,
     photographer varchar2(30),
     attraction_id number(11,0) not null,
-    primary key(picture_id),
-    foreign key(attraction_id) references attractions(attraction_id)
+    constraint pk_picture primary key(picture_id),
+    constraint fk_picture foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade
 );
 
 create table languages(
     language varchar2(20),
-    primary key(language)
+    constraint pk_language primary key(language)
 );
 
 create table employee_speaks(
     attraction_id number(11,0),
     language varchar2(20),
-    foreign key(attraction_id) references attractions (attraction_id),
-    foreign key(language) references languages(language),
-    primary key (language, attraction_id)
+    constraint fk_empSpeakAtr foreign key(attraction_id) references attractions (attraction_id)
+    on delete cascade,
+    constraint fk_empSpeakLang foreign key(language) references languages(language)
+    on delete cascade,
+    constraint pk_empSpeak primary key (language, attraction_id)
 );
 
 create table tourists(
@@ -59,8 +65,8 @@ create table tourists(
     birth_date date not null,
     NIF char(9) not null,
     nationality varchar2(20) not null,
-    primary key(tourist_id),
-    unique(NIF)
+    constraint pk_tourist primary key(tourist_id),
+    constraint uniqueNIF unique(NIF)
 );
 
 create table visits(
@@ -68,10 +74,12 @@ create table visits(
     departure_time timestamp not null,
     tourist_id number(11,0),
     attraction_id number(11,0),
-    foreign key(tourist_id) references tourists(tourist_id),
-    foreign key(attraction_id) references attractions(attraction_id),
-    primary key(arrival_time, tourist_id, attraction_id),
-    check(arrival_time - departure_time > interval '0' second)
+    constraint fk_visitTourist foreign key(tourist_id) references tourists(tourist_id)
+    on delete cascade,
+    constraint fk_visitAtr foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade,
+    constraint pk_ primary key(arrival_time, tourist_id, attraction_id),
+    constraint departAfterArrival check(arrival_time - departure_time > interval '0' second)
 );
 
 create table reviews(
@@ -82,98 +90,112 @@ create table reviews(
     arrival_time timestamp,
     tourist_id number(11,0),
     attraction_id number(11,0),
-    foreign key(language) references languages(language),
-    foreign key(arrival_time, tourist_id, attraction_id)
-        references visits(arrival_time, tourist_id, attraction_id),
-    primary key(arrival_time, tourist_id, attraction_id, review_date),
-    check(rating >=0 and rating <= 5)
+    constraint fk_reviewLang foreign key(language) references languages(language)
+    on delete cascade,
+    constraint fk_reviewVisit foreign key(arrival_time, tourist_id, attraction_id)
+        references visits(arrival_time, tourist_id, attraction_id)
+        on delete cascade,
+    constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
+    constraint ratingLimit check(rating >= 1 and rating <= 5)
 );
 
 create table tourist_speaks(
     tourist_id number(11,0),
     language varchar2(20),
-    foreign key (tourist_id) references tourists(tourist_id),
-    foreign key (language) references languages(language),
-    primary key(language, tourist_id)
+    constraint fk_tSpeakTourist foreign key (tourist_id) references tourists(tourist_id)
+    on delete cascade,
+    constraint fk_tSpeakLang foreign key (language) references languages(language)
+    on delete cascade,
+    constraint pk_tSpeak primary key(language, tourist_id)
 );
+
 create table restaurants(
     attraction_id number(11,0),
     main_dish varchar2(50) not null,
-    foreign key(attraction_id) references attractions(attraction_id),
-    primary key(attraction_id)
+    constraint fk_restaurantAtr foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade,
+    constraint pk_restaurant primary key(attraction_id)
 );
 
 create table food_types(
     food_type varchar(50),
-    primary key(food_type)
+    constraint pk_foodType primary key(food_type)
 );
 
 create table serves(
     food_type varchar(50),
     attraction_id number(11,0),
-    foreign key(food_type) references food_types(food_type),
-    foreign key(attraction_id) references restaurants(attraction_id),
-    primary key(food_type, attraction_id)
+    constraint fk_serveFood foreign key(food_type) references food_types(food_type)
+    on delete cascade,
+    constraint fk_serveRestaurant foreign key(attraction_id) references restaurants(attraction_id)
+    on delete cascade,
+    constraint pk_serve primary key(food_type, attraction_id)
 );
 
 create table hotels(
     attraction_id number(11,0),
-    stars number(1,0) not null, -- default 1?
+    stars number(1,0) not null,
     hasPool char(1) default 'F',
     hasSpa char(1) default 'F',
     hasGym char(1) default 'F',
-    foreign key(attraction_id) references attractions(attraction_id),
-    primary key(attraction_id),
-    check(stars<= 5 and stars >= 0),
-    check(hasPool = 'F' or hasPool = 'T'),
-    check(hasSpa = 'F' or hasPool = 'T'),
-    check(hasGym = 'F' or hasPool = 'T')
+    constraint fk_hotelAtr foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade,
+    constraint pk_hotel primary key(attraction_id),
+    constraint starsLimit check(stars<= 5 and stars >= 1),
+    constraint booleanPool check(hasPool = 'F' or hasPool = 'T'),
+    constraint booleanSpa check(hasSpa = 'F' or hasPool = 'T'),
+    constraint booleanGym check(hasGym = 'F' or hasPool = 'T')
 );
 
 create table belongs_to(
     restaurant_id number(11,0),
     hotel_id number(11,0),
-    foreign key(restaurant_id) references restaurants(attraction_id),
-    foreign key(hotel_id) references hotels(attraction_id),
-    primary key(restaurant_id, hotel_id)
+    constraint fk_belongToRestaurant foreign key(restaurant_id) references restaurants(attraction_id)
+    on delete cascade,
+    constraint fk_belongToHotel foreign key(hotel_id) references hotels(attraction_id)
+    on delete cascade,
+    constraint pk_belongTo primary key(restaurant_id, hotel_id)
 );
 
 create table museums(
     attraction_id number(11,0),
     theme varchar(50) not null,
-    foreign key(attraction_id) references attractions(attraction_id),
-    primary key(attraction_id)
+    constraint fk_museumAtr foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade,
+    constraint pk_musuem primary key(attraction_id)
 );
 
 create table guides(
     language varchar(20),
     attraction_id number(11,0),
-    foreign key(language) references languages(language),
-    foreign key(attraction_id) references museums(attraction_id),
-    primary key (attraction_id, language)
+    constraint fk_guideLang foreign key(language) references languages(language)
+    on delete cascade,
+    constraint fk_guideMuseum foreign key(attraction_id) references museums(attraction_id)
+    on delete cascade,
+    constraint pk_guide primary key (attraction_id, language)
 );
 
--- there is no datatype hour needs fixing
---create table schedules(
---    start_date date,
---    end_date date,
---    opening_time timestamp,
---    closing_time timestamp,
---    attraction_id number(11,0),
---    primary key(start_date, end_date, opening_time, closing_time)
---);
+create table schedules(
+    start_date date,
+    end_date date,
+    opening_time timestamp,
+    closing_time timestamp,
+    constraint pk_schedule primary key(start_date, end_date, opening_time, closing_time)
+);
 
---create table schedules_of(
---    start_date date,
---    end_date date,
---    opening_time timestamp,
---    closing_time timestamp,
---    attraction_id number(11,0),
---    foreign key(start_date, end_date, opening_time, closing_time)
---        references schedules(start_date, end_date, opening_time, closing_time),
---    foreign key(attraction_id) references attractions(attraction_id),
---    primary key(start_date, end_date, opening_time, closing_time, attraction_id)
---);
+create table schedules_of(
+    start_date date,
+    end_date date,
+    opening_time timestamp,
+    closing_time timestamp,
+    attraction_id number(11,0),
+    constraint fk_scheduleOfSch foreign key(start_date, end_date, opening_time, closing_time)
+        references schedules(start_date, end_date, opening_time, closing_time)
+        on delete cascade,
+    constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id)
+    on delete cascade,
+    constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
+);
 
 insert into languages(language) values('portugues');
 insert into languages(language) values('ingles');
@@ -324,6 +346,8 @@ O monumento faz uma sintese entre a torre de menagem de tradicao medieval e o ba
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2010-01-31 09:26:50', null, seq_attr_id.currval);
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2015-05-31 10:30:54', null, seq_attr_id.currval);
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval,'Torre de Belem, perfil, noite', '2019-06-01 23:03:30','Joao Bravo' , seq_attr_id.currval);
+
+--Missing schedule
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
