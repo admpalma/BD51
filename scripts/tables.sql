@@ -403,6 +403,8 @@ onde cada sala e cada recanto nos transportam para a historia dos seus proprieta
 o Parador Casa da Insua conjuga passado e presente, com detalhes que fazem os seus visitantes sentir-se como parte dessa historia.',
 '+351232640110', 'https://montebelohotels.com/parador-casa-insua/pt/home');
 
+
+
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2019-12-24 15:05:23', 'Joseph Walks', seq_attr_id.currval);
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2019-12-24 15:09:30', 'Joseph Walks', seq_attr_id.currval);
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2019-12-24 15:20:49', 'Joseph Walks', seq_attr_id.currval);
@@ -433,11 +435,47 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 
 insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_attr_id.currval, 5, 'T', 'T', 'T');
 
+-- Add some food types
+insert into food_types(food_type) values('Marisco');
+insert into food_types(food_type) values('Peixe');
+insert into food_types(food_type) values('Vegetariano');
+insert into food_types(food_type) values('Churrasco');
+insert into food_types(food_type) values('Sushi');
+insert into food_types(food_type) values('Asiatico');
+insert into food_types(food_type) values('Buffet');
+insert into food_types(food_type) values('Pizzaria');
+insert into food_types(food_type) values('Portugues');
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval,
 'Restaurante e Bar Anfora','Uma anfora guarda a mais pura essencia das coisas e liberta-as do que nao e primordial.
 E este, tambem, o principio do restaurante do Palacio do Governador, em que cada prato servido acentua nao mais que o essencial:
 o sabor trazido pelos melhores produtos da terra e do mar.', '+351212467800', 'https://www.palaciogovernador.com/restaurante-e-bar.html');
+
+insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'O mais Portugues de Portugal');
+insert into serves(food_type, attraction_id) values('Portugues', seq_attr_id.currval);
+
+insert into attractions(latitude, longitude, attraction_id, attraction_name,
+attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
+'Restaurante Fake News I','Neste restaurante falso come-se comida verdadeira.', '+351212487800', 'https://www.fake1.com/restaurante-e-bar.html');
+
+insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'Bacalhau à Lagareiro');
+insert into serves(food_type, attraction_id) values('Peixe', seq_attr_id.currval);
+
+insert into attractions(latitude, longitude, attraction_id, attraction_name,
+attraction_descr, attraction_phone, attraction_website) values(42.69491, -7.21472, seq_attr_id.nextval,
+'Restaurante Fake News II','Neste restaurante falso tambem se come comida verdadeira.', '+351212467800', 'https://www.fake2.com/restaurante-e-bar.html');
+
+insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'Salmao');
+insert into serves(food_type, attraction_id) values('Sushi', seq_attr_id.currval);
+
+insert into attractions(latitude, longitude, attraction_id, attraction_name,
+attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
+'Restaurante Fake News III','Este restaurante falso é melhor que os outros.', '+351212587800', 'https://www.fake3.com/restaurante-e-bar.html');
+
+insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'Pizza de Pepperoni');
+insert into serves(food_type, attraction_id) values('Pizzaria', seq_attr_id.currval);
+
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
