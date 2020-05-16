@@ -96,7 +96,8 @@ create table reviews(
         references visits(arrival_time, tourist_id, attraction_id)
         on delete cascade,
     constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
-    constraint ratingLimit check(rating >= 1 and rating <= 5)
+    constraint ratingLimit check(rating >= 1 and rating <= 5),
+	constraint reviewAfterArrival check(review_date - arrival_time > interval '0' second)
 );
 
 create table tourist_speaks(
