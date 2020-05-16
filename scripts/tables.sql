@@ -519,17 +519,32 @@ insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_att
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Casa Insua tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 5, 'review Casa Insua tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Casa Insua tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review Casa Insua tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Casa Insua tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval, 'Palacio do Governador','Nao e apenas mais um hotel em Lisboa. E o Palacio do Governador, com 60 quartos, todos diferentes, junto ao rio Tejo, em pleno centro historico de Belem, numa das zonas mais bonitas e emblematicas da capital. Este emblematico hotel de charme faz reviver um legado historico impar, ao mesmo tempo que enaltece a qualidade, exclusividade e requinte.', '+351213007009', 'https://www.palaciogovernador.com/');
 
