@@ -585,17 +585,32 @@ insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_att
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review Palacio tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 3, 'review Palacio tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Palacio tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Palacio tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Palacio tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval,
@@ -612,17 +627,32 @@ insert into belongs_to(restaurant_id, hotel_id) values(seq_attr_id.currval, seq_
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Anfora tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 2, 'review Anfora tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Anfora tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review Anfora tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Anfora tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
@@ -634,17 +664,32 @@ insert into serves(food_type, attraction_id) values('Peixe', seq_attr_id.currval
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review FAKE1 tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 3, 'review FAKE1 tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 2, 'review FAKE1 tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review FAKE1 tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review FAKE1 tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(42.69491, -7.21472, seq_attr_id.nextval,
@@ -656,17 +701,32 @@ insert into serves(food_type, attraction_id) values('Sushi', seq_attr_id.currval
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review FAKE2 tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 4, 'review FAKE2 tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review FAKE2 tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review FAKE2 tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review FAKE2 tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
@@ -685,16 +745,29 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review FAKE3 tour2', 'ingles', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 3, 'review FAKE3 tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review FAKE3 tour15', 'portugues', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review FAKE3 tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
-
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 3, 'review FAKE3 tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
