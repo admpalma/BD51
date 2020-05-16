@@ -54,8 +54,7 @@ create table employee_speaks(
     language varchar2(20),
     constraint fk_empSpeakAtr foreign key(attraction_id) references attractions (attraction_id)
     on delete cascade,
-    constraint fk_empSpeakLang foreign key(language) references languages(language)
-    on delete cascade,
+    constraint fk_empSpeakLang foreign key(language) references languages(language),
     constraint pk_empSpeak primary key (language, attraction_id)
 );
 
@@ -90,14 +89,13 @@ create table reviews(
     arrival_time timestamp,
     tourist_id number(11,0),
     attraction_id number(11,0),
-    constraint fk_reviewLang foreign key(language) references languages(language)
-    on delete cascade,
+    constraint fk_reviewLang foreign key(language) references languages(language),
     constraint fk_reviewVisit foreign key(arrival_time, tourist_id, attraction_id)
         references visits(arrival_time, tourist_id, attraction_id)
         on delete cascade,
     constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
     constraint ratingLimit check(rating >= 1 and rating <= 5),
-	constraint reviewAfterArrival check(review_date - arrival_time > interval '0' second)
+    constraint reviewAfterArrival check(review_date - arrival_time > interval '0' second)
 );
 
 create table tourist_speaks(
@@ -105,8 +103,7 @@ create table tourist_speaks(
     language varchar2(20),
     constraint fk_tSpeakTourist foreign key (tourist_id) references tourists(tourist_id)
     on delete cascade,
-    constraint fk_tSpeakLang foreign key (language) references languages(language)
-    on delete cascade,
+    constraint fk_tSpeakLang foreign key (language) references languages(language),
     constraint pk_tSpeak primary key(language, tourist_id)
 );
 
@@ -126,8 +123,7 @@ create table food_types(
 create table serves(
     food_type varchar(50),
     attraction_id number(11,0),
-    constraint fk_serveFood foreign key(food_type) references food_types(food_type)
-    on delete cascade,
+    constraint fk_serveFood foreign key(food_type) references food_types(food_type),
     constraint fk_serveRestaurant foreign key(attraction_id) references restaurants(attraction_id)
     on delete cascade,
     constraint pk_serve primary key(food_type, attraction_id)
@@ -169,8 +165,7 @@ create table museums(
 create table guides(
     language varchar(20),
     attraction_id number(11,0),
-    constraint fk_guideLang foreign key(language) references languages(language)
-    on delete cascade,
+    constraint fk_guideLang foreign key(language) references languages(language),
     constraint fk_guideMuseum foreign key(attraction_id) references museums(attraction_id)
     on delete cascade,
     constraint pk_guide primary key (attraction_id, language)
@@ -191,10 +186,8 @@ create table schedules_of(
     closing_time timestamp,
     attraction_id number(11,0),
     constraint fk_scheduleOfSch foreign key(start_date, end_date, opening_time, closing_time)
-        references schedules(start_date, end_date, opening_time, closing_time)
-        on delete cascade,
-    constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id)
-    on delete cascade,
+        references schedules(start_date, end_date, opening_time, closing_time),
+    constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
 
