@@ -75,6 +75,10 @@ create table tourists(
     constraint uniqueNIF unique(NIF)
 );
 
+create sequence seq_tour_id
+start with 1
+increment by 1;
+
 create table visits(
     arrival_time timestamp,
     departure_time timestamp not null,
@@ -197,6 +201,16 @@ create table schedules_of(
     constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
+
+create or replace trigger insert_tourists
+    before insert on tourists
+    for each row
+    begin
+        select seq_tour_id.nextval
+        into :new.tourist_id
+        from dual;
+    end;
+/
 
 create or replace trigger insert_attractions
     before insert on attractions
@@ -376,121 +390,117 @@ insert into food_types(food_type) values('Buffet');
 insert into food_types(food_type) values('Pizzaria');
 insert into food_types(food_type) values('Portugues');
 
-create sequence seq_tour_id
-start with 1
-increment by 1;
-
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Jose Mortagua', date '1987-05-13', '983763234', 'portugues(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Jose Mortagua', date '1987-05-13', '983763234', 'portugues(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'portugues');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Jacques Francois', date '1978-01-30', '756283947', 'frances(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Jacques Francois', date '1978-01-30', '756283947', 'frances(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'alemao');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Monica Wright', date '1995-09-10', '576039003', 'ingles(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Monica Wright', date '1995-09-10', '576039003', 'ingles(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'chines');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Fei Wei Wei', date '1976-04-25', '352857337', 'chines(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Fei Wei Wei', date '1976-04-25', '352857337', 'chines(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'chines');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Park Jimin', date '1995-10-13', '462362718', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Park Jimin', date '1995-10-13', '462362718', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Kim Taehyung', date '1995-12-30', '656646477', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Kim Taehyung', date '1995-12-30', '656646477', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Vance Stevenson', date '1987-07-07', '222288882', 'americano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Vance Stevenson', date '1987-07-07', '222288882', 'americano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Vivian Ybarra', date '1977-09-15', '465823745', 'italiano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Vivian Ybarra', date '1977-09-15', '465823745', 'italiano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'italiano');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Leocadia Banderas', date '1968-02-19', '111888444', 'espanhol(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Leocadia Banderas', date '1968-02-19', '111888444', 'espanhol(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'espanhol');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'italiano');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Zac Baldwin', date '2001-08-29', '444888222', 'americano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Zac Baldwin', date '2001-08-29', '444888222', 'americano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Valerie Bourdoix', date '1998-03-19', '123987654', 'frances(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Valerie Bourdoix', date '1998-03-19', '123987654', 'frances(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Artur Banderas', date '1962-11-12', '342764777', 'espanhol(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Artur Banderas', date '1962-11-12', '342764777', 'espanhol(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'espanhol');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Sebastian Bourdoix', date '1992-02-01', '342634294', 'frances(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Sebastian Bourdoix', date '1992-02-01', '342634294', 'frances(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Chrollo Lucilfer', date '1992-07-30', '666000666', 'ingles(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Chrollo Lucilfer', date '1992-07-30', '666000666', 'ingles(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Jeon Jungkook', date '1997-09-01', '111111111', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Jeon Jungkook', date '1997-09-01', '111111111', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Kim Seokjin', date '1992-12-04', '192129921', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Kim Seokjin', date '1992-12-04', '192129921', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Kim Namjoon', date '1994-09-12', '252525124', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Kim Namjoon', date '1994-09-12', '252525124', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Min Yoongi', date '1993-03-09', '666455545', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Min Yoongi', date '1993-03-09', '666455545', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
 
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Jung Hoseok', date '1994-02-18', '666055545', 'coreano(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Jung Hoseok', date '1994-02-18', '666055545', 'coreano(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'coreano');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'japones');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'chines');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Marcela Souza', date '1987-07-20', '616055005', 'portugues(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Marcela Souza', date '1987-07-20', '616055005', 'portugues(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'portugues');
 
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Chica Silva', date '2003-08-21', '616033005', 'espanhol(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Chica Silva', date '2003-08-21', '616033005', 'espanhol(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'espanhol');
 
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Alexandre Souza', date '1987-03-10', '616075005', 'portugues(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Alexandre Souza', date '1987-03-10', '616075005', 'portugues(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'portugues');
 
-insert into tourists(tourist_id, tourist_name, birth_date, NIF, nationality) values(seq_tour_id.nextval, 'Andre Santos', date '2001-04-30', '010000022', 'portugues(a)');
+insert into tourists(tourist_name, birth_date, NIF, nationality) values('Andre Santos', date '2001-04-30', '010000022', 'portugues(a)');
 
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'portugues');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'ingles');
