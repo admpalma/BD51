@@ -384,7 +384,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69789, -9.20670, seq_attr_id.nextval, 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]', '+351213620034', 'http://www.mosteirojeronimos.pt/');
@@ -417,7 +417,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 13 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values (38.72079, -9.11705, seq_attr_id.nextval, 'Museu Nacional do Azulejo', 'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express�o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.', '+351218100340' ,'http://www.museudoazulejo.pt/');
 
@@ -450,7 +450,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website)
 values (40.67611, 7.70694, seq_attr_id.nextval,'Casa da Insua','Perfeitamente integrado num Palacete Barroco do sec. XVIII,
@@ -487,7 +487,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval, 'Palacio do Governador','Nao e apenas mais um hotel em Lisboa. E o Palacio do Governador, com 60 quartos, todos diferentes, junto ao rio Tejo, em pleno centro historico de Belem, numa das zonas mais bonitas e emblematicas da capital. Este emblematico hotel de charme faz reviver um legado historico impar, ao mesmo tempo que enaltece a qualidade, exclusividade e requinte.', '+351213007009', 'https://www.palaciogovernador.com/');
 
@@ -515,7 +515,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval,
@@ -542,7 +542,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
@@ -564,7 +564,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(42.69491, -7.21472, seq_attr_id.nextval,
@@ -586,7 +586,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
@@ -615,4 +615,6 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
-values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+values ('2019-06-01 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+
