@@ -328,32 +328,6 @@ create or replace trigger insert_attr_restaurants
 /
 
 -- Trigger to make sure Review is written in the tourists language
--- create or replace trigger reviewInTouristLanguage
--- before insert on reviews
--- referencing new as nrow
--- for each row
--- begin
--- 	check ( :nrow.language in
--- 	(select language
--- 	from tourist_speaks T
--- 	where T.tourist_id = :nrow.tourist_id ))
--- end;
--- /
---
--- create or replace trigger reviewInTouristLanguage
--- before insert on reviews
--- for each row
--- declare CountSpeaks number;
--- begin
--- 	select count(*) into CountSpeaks from reviews inner join tourist_speaks t using(tourist_id) where t.language = :new.language;
---
--- 	if (CountSpeaks = 0)
--- 		then Raise_Application_Error (-20100, 'Review is not written in a language the tourist speaks!');
--- 	end if;
--- 	end;
--- /
-
--- Trigger to make sure Review is written in the tourists language
 create or replace trigger reviewInTouristLanguage
 before insert on reviews
 for each row
