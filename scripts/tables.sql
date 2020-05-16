@@ -213,13 +213,30 @@ create table schedules_of(
 -- 
 -- create or replace trigger reviewInTouristLanguage
 -- before insert on reviews
--- referencing new as nrow
 -- for each row
+-- declare CountSpeaks number;
 -- begin
---  IF :nrow.language not in (select language from tourist_speaks where :nrow.tourist_id = tourist_id) THEN
---   raise_application_error( -20001, 'Review written in language the tourist doesnt speak' );
--- end;
+-- 	select count(*) into CountSpeaks from reviews inner join tourist_speaks t using(tourist_id) where t.language = :new.language;
+-- 	
+-- 	if (CountSpeaks = 0)
+-- 		then Raise_Application_Error (-20100, 'Review is not written in a language the tourist speaks!');
+-- 	end if;
+-- 	end;
 -- /	
+
+-- Trigger to make sure Review is written in the tourists language
+create or replace trigger reviewInTouristLanguage
+before insert on reviews
+for each row
+declare CountSpeaks number;
+begin
+	select count(*) into CountSpeaks from tourist_speaks t where t.tourist_id = :new.tourist_id and t.language = :new.language;
+	
+	if (CountSpeaks = 0)
+		then Raise_Application_Error (-20100, 'Review is not written in a language the tourist speaks!');
+	end if;
+	end;
+/
 
 -- Add some languages
 insert into languages(language) values('portugues');
@@ -763,11 +780,15 @@ values (date '2019-06-04', 4, 'review FAKE3 tour15', 'portugues', timestamp '201
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+-- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour6', 'ingles', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
+-- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'ingles', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
+
+select * from tourist_speaks where tourist_id = 6;
