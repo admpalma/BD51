@@ -51,6 +51,10 @@ create table pictures(
     on delete cascade
 );
 
+create sequence seq_pic_id
+start with 1
+increment by 1;
+
 create table languages(
     language varchar2(20),
     constraint pk_language primary key(language)
@@ -201,6 +205,16 @@ create table schedules_of(
     constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
+
+create or replace trigger insert_pictures
+    before insert on pictures
+    for each row
+    begin
+        select seq_pic_id.nextval
+        into :new.picture_id
+        from dual;
+    end;
+/
 
 create or replace trigger insert_tourists
     before insert on tourists
@@ -481,19 +495,15 @@ insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'i
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'russo');
 
-create sequence seq_pic_id
-start with 1
-increment by 1;
-
 insert into attr_museums(latitude, longitude, attraction_name, attraction_descr, attraction_phone, attraction_website, theme)
 values (38.69158, -9.21597, 'Torre de Belem',
 'Construida estrategicamente na margem norte do rio Tejo entre 1514 e 1520, sob orientacao de Francisco de Arruda, a Torre de Belem e uma das joias da arquitetura do reinado de D. Manuel I.
 O monumento faz uma sintese entre a torre de menagem de tradicao medieval e o baluarte, mais largo, com a sua casamata onde se dispunham os primeiros dispositivos aptos para resistir ao fogo de artilharia. [+]',
 '+351213620034', 'http://www.torrebelem.pt/', 'Torre de Belem (tema)');
 
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2010-01-31 09:26:50', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2015-05-31 10:30:54', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval,'Torre de Belem, perfil, noite', timestamp '2019-06-01 23:03:30','Joao Bravo' , seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2010-01-31 09:26:50', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2015-05-31 10:30:54', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values('Torre de Belem, perfil, noite', timestamp '2019-06-01 23:03:30','Joao Bravo' , seq_attr_id.currval);
 
 --Missing schedule
 
@@ -540,9 +550,9 @@ values(38.69789, -9.20670, 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]',
 '+351213620034', 'http://www.mosteirojeronimos.pt/', 'Mosteiro dos Geronimos(tema)');
 
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-10-21 12:26:40', 'John Miller', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2018-12-23 15:06:10', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-01-30 17:00:50', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-10-21 12:26:40', 'John Miller', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2018-12-23 15:06:10', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-01-30 17:00:50', null, seq_attr_id.currval);
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
@@ -587,9 +597,9 @@ values (38.72079, -9.11705, 'Museu Nacional do Azulejo',
 'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express�o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.',
 '+351218100340' ,'http://www.museudoazulejo.pt/', 'Azulejo');
 
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2020-01-01 12:31:12', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2000-06-10 10:28:31', 'Maria Jose', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2020-01-01 12:31:12', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2000-06-10 10:28:31', 'Maria Jose', seq_attr_id.currval);
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
@@ -635,13 +645,13 @@ insert into attr_hotels(latitude, longitude, attraction_name, attraction_descr, 
 values (40.67611, 7.70694, 'Casa da Insua', 'Perfeitamente integrado num Palacete Barroco do sec. XVIII, onde cada sala e cada recanto nos transportam para a historia dos seus proprietarios e para momentos da historia de Portugal e do Brasil, o Parador Casa da Insua conjuga passado e presente, com detalhes que fazem os seus visitantes sentir-se como parte dessa historia.',
 '+351232640110', 'https://montebelohotels.com/parador-casa-insua/pt/home', 5, 'T', 'F', 'F');
 
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 15:05:23', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 15:09:30', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 15:20:49', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 15:34:45', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 16:02:02', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-24 21:59:37', 'Joseph Walks', seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:05:23', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:09:30', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:20:49', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:34:45', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 16:02:02', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:59:37', 'Joseph Walks', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
 
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
@@ -685,8 +695,8 @@ values(38.69491, -9.21472, 'Palacio do Governador',
 'Nao e apenas mais um hotel em Lisboa. E o Palacio do Governador, com 60 quartos, todos diferentes, junto ao rio Tejo, em pleno centro historico de Belem, numa das zonas mais bonitas e emblematicas da capital. Este emblematico hotel de charme faz reviver um legado historico impar, ao mesmo tempo que enaltece a qualidade, exclusividade e requinte.',
 '+351213007009', 'https://www.palaciogovernador.com/', 5, 'T', 'T', 'T');
 
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-03-29 11:12:05', null, seq_attr_id.currval);
-insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, timestamp '2019-05-18 17:23:12', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-03-29 11:12:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-05-18 17:23:12', null, seq_attr_id.currval);
 
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
