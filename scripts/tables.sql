@@ -374,17 +374,32 @@ insert into guides(language, attraction_id) values ('ingles', seq_attr_id.currva
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-02', 5, 'review Torre de Belem  tour2', 'portugues', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 3, 'review Torre de Belem tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-03', 4, 'review Torre de Belem tour15', 'ingles', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-12', 4, 'review Torre de Belem tour6', 'frances', timestamp '2019-06-11 09:03:30', 6, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Torre de Belem tour9', 'frances', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69789, -9.20670, seq_attr_id.nextval, 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]', '+351213620034', 'http://www.mosteirojeronimos.pt/');
@@ -407,14 +422,26 @@ insert into guides(language, attraction_id) values ('espanhol', seq_attr_id.curr
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 1 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 4, 'review Mosteiro dos Geronimos tour1', 'ingles', timestamp '2019-06-01 09:03:30', 1, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 6 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-05-04', 2, 'review Mosteiro dos Geronimos tour6', 'portugues', timestamp '2019-06-01 09:03:30', 6, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 14 ,seq_attr_id.currval);
 
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-04', 5, 'review Mosteiro dos Geronimos tour14', 'ingles', timestamp '2019-06-03 10:03:30', 14, seq_attr_id.currval);
+
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 13 ,seq_attr_id.currval);
+
+insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
+values (date '2019-06-14', 2, 'review Mosteiro dos Geronimos tour14', 'ingles', timestamp '2019-06-03 10:03:30', 14, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
