@@ -197,6 +197,7 @@ create table schedules_of(
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
 
+-- Add some languages
 insert into languages(language) values('portugues');
 insert into languages(language) values('ingles');
 insert into languages(language) values('frances');
@@ -208,6 +209,16 @@ insert into languages(language) values('coreano');
 insert into languages(language) values('chines');
 insert into languages(language) values('russo');
 
+-- Add some food types
+insert into food_types(food_type) values('Marisco');
+insert into food_types(food_type) values('Peixe');
+insert into food_types(food_type) values('Vegetariano');
+insert into food_types(food_type) values('Churrasco');
+insert into food_types(food_type) values('Sushi');
+insert into food_types(food_type) values('Asiatico');
+insert into food_types(food_type) values('Buffet');
+insert into food_types(food_type) values('Pizzaria');
+insert into food_types(food_type) values('Portugues');
 
 create sequence seq_tour_id
 start with 1
@@ -434,17 +445,6 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'chines');
 
 insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_attr_id.currval, 5, 'T', 'T', 'T');
-
--- Add some food types
-insert into food_types(food_type) values('Marisco');
-insert into food_types(food_type) values('Peixe');
-insert into food_types(food_type) values('Vegetariano');
-insert into food_types(food_type) values('Churrasco');
-insert into food_types(food_type) values('Sushi');
-insert into food_types(food_type) values('Asiatico');
-insert into food_types(food_type) values('Buffet');
-insert into food_types(food_type) values('Pizzaria');
-insert into food_types(food_type) values('Portugues');
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval,
