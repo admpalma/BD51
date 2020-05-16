@@ -455,6 +455,9 @@ o sabor trazido pelos melhores produtos da terra e do mar.', '+351212467800', 'h
 insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'O mais Portugues de Portugal');
 insert into serves(food_type, attraction_id) values('Portugues', seq_attr_id.currval);
 
+--needs fixing vvv currval-1??
+insert into belongs_to(restaurant_id, hotel_id) values(seq_attr_id.currval, seq_attr_id.currval -1);
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
 'Restaurante Fake News I','Neste restaurante falso come-se comida verdadeira.', '+351212487800', 'https://www.fake1.com/restaurante-e-bar.html');
@@ -482,8 +485,3 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'alemao');
-
-insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'O mais Portugues de Portugal');
-
---needs fixing vvv currval-1??
-insert into belongs_to(restaurant_id, hotel_id) values(seq_attr_id.currval, seq_attr_id.currval -1);
