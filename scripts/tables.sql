@@ -198,6 +198,29 @@ create table schedules_of(
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
 
+-- Trigger to make sure Review is written in the tourists language
+-- create or replace trigger reviewInTouristLanguage
+-- before insert on reviews
+-- referencing new as nrow
+-- for each row
+-- begin
+-- 	check ( :nrow.language in 
+-- 	(select language 
+-- 	from tourist_speaks T 
+-- 	where T.tourist_id = :nrow.tourist_id ))
+-- end;
+-- /
+-- 
+-- create or replace trigger reviewInTouristLanguage
+-- before insert on reviews
+-- referencing new as nrow
+-- for each row
+-- begin
+--  IF :nrow.language not in (select language from tourist_speaks where :nrow.tourist_id = tourist_id) THEN
+--   raise_application_error( -20001, 'Review written in language the tourist doesnt speak' );
+-- end;
+-- /	
+
 -- Add some languages
 insert into languages(language) values('portugues');
 insert into languages(language) values('ingles');
