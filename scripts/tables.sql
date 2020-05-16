@@ -79,7 +79,7 @@ create table visits(
     constraint fk_visitAtr foreign key(attraction_id) references attractions(attraction_id)
     on delete cascade,
     constraint pk_visit primary key(arrival_time, tourist_id, attraction_id),
-    constraint departAfterArrival check(arrival_time - departure_time > interval '0' second)
+    constraint departAfterArrival check(departure_time - arrival_time  > interval '0' second)
 );
 
 create table reviews(
@@ -370,6 +370,21 @@ insert into museums(attraction_id, theme) values(seq_attr_id.currval, 'Torre de 
 insert into guides(language, attraction_id) values ('portugues', seq_attr_id.currval);
 insert into guides(language, attraction_id) values ('ingles', seq_attr_id.currval);
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69789, -9.20670, seq_attr_id.nextval, 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]', '+351213620034', 'http://www.mosteirojeronimos.pt/');
 
@@ -388,6 +403,20 @@ insert into guides(language, attraction_id) values ('portugues', seq_attr_id.cur
 insert into guides(language, attraction_id) values ('ingles', seq_attr_id.currval);
 insert into guides(language, attraction_id) values ('espanhol', seq_attr_id.currval);
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 1 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 14 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 13 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values (38.72079, -9.11705, seq_attr_id.nextval, 'Museu Nacional do Azulejo', 'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express�o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.', '+351218100340' ,'http://www.museudoazulejo.pt/');
 
@@ -407,14 +436,26 @@ insert into guides(language, attraction_id) values ('ingles', seq_attr_id.currva
 insert into guides(language, attraction_id) values ('espanhol', seq_attr_id.currval);
 insert into guides(language, attraction_id) values ('frances', seq_attr_id.currval);
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website)
 values (40.67611, 7.70694, seq_attr_id.nextval,'Casa da Insua','Perfeitamente integrado num Palacete Barroco do sec. XVIII,
 onde cada sala e cada recanto nos transportam para a historia dos seus proprietarios e para momentos da historia de Portugal e do Brasil,
 o Parador Casa da Insua conjuga passado e presente, com detalhes que fazem os seus visitantes sentir-se como parte dessa historia.',
 '+351232640110', 'https://montebelohotels.com/parador-casa-insua/pt/home');
-
-
 
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2019-12-24 15:05:23', 'Joseph Walks', seq_attr_id.currval);
 insert into pictures(picture_id, picture_descr, picture_date, photographer, attraction_id) values(seq_pic_id.nextval, null, '2019-12-24 15:09:30', 'Joseph Walks', seq_attr_id.currval);
@@ -432,6 +473,20 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 
 insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_attr_id.currval, 5, 'T', 'F', 'F');
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval, 'Palacio do Governador','Nao e apenas mais um hotel em Lisboa. E o Palacio do Governador, com 60 quartos, todos diferentes, junto ao rio Tejo, em pleno centro historico de Belem, numa das zonas mais bonitas e emblematicas da capital. Este emblematico hotel de charme faz reviver um legado historico impar, ao mesmo tempo que enaltece a qualidade, exclusividade e requinte.', '+351213007009', 'https://www.palaciogovernador.com/');
 
@@ -446,6 +501,21 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 
 insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values(seq_attr_id.currval, 5, 'T', 'T', 'T');
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(38.69491, -9.21472, seq_attr_id.nextval,
 'Restaurante e Bar Anfora','Uma anfora guarda a mais pura essencia das coisas e liberta-as do que nao e primordial.
@@ -458,6 +528,21 @@ insert into serves(food_type, attraction_id) values('Portugues', seq_attr_id.cur
 --needs fixing vvv currval-1??
 insert into belongs_to(restaurant_id, hotel_id) values(seq_attr_id.currval, seq_attr_id.currval -1);
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
 'Restaurante Fake News I','Neste restaurante falso come-se comida verdadeira.', '+351212487800', 'https://www.fake1.com/restaurante-e-bar.html');
@@ -465,12 +550,42 @@ attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.2147
 insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'Bacalhau à Lagareiro');
 insert into serves(food_type, attraction_id) values('Peixe', seq_attr_id.currval);
 
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
+
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(42.69491, -7.21472, seq_attr_id.nextval,
 'Restaurante Fake News II','Neste restaurante falso tambem se come comida verdadeira.', '+351212467800', 'https://www.fake2.com/restaurante-e-bar.html');
 
 insert into restaurants(attraction_id, main_dish) values(seq_attr_id.currval, 'Salmao');
 insert into serves(food_type, attraction_id) values('Sushi', seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
 
 insert into attractions(latitude, longitude, attraction_id, attraction_name,
 attraction_descr, attraction_phone, attraction_website) values(40.69491, -7.21472, seq_attr_id.nextval,
@@ -485,3 +600,18 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'alemao');
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-01 09:03:30', '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-05-01 09:03:30', '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-03 10:03:30', '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-11 09:03:30', '2019-06-11 10:03:30', 6 ,seq_attr_id.currval);
+
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
+values ('2019-06-04 15:03:30', '2019-06-01 15:04:30', 9 ,seq_attr_id.currval);
