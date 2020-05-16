@@ -429,7 +429,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 6 ,seq_attr_id.currval);
 
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
-values (date '2019-05-04', 2, 'review Mosteiro dos Geronimos tour6', 'portugues', timestamp '2019-06-01 09:03:30', 6, seq_attr_id.currval);
+values (date '2019-06-04', 2, 'review Mosteiro dos Geronimos tour6', 'portugues', timestamp '2019-06-01 09:03:30', 6, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 14 ,seq_attr_id.currval);
@@ -441,7 +441,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values (timestamp '2019-06-11 09:03:30', timestamp '2019-06-11 10:03:30', 13 ,seq_attr_id.currval);
 
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
-values (date '2019-06-14', 2, 'review Mosteiro dos Geronimos tour14', 'ingles', timestamp '2019-06-03 10:03:30', 14, seq_attr_id.currval);
+values (date '2019-06-14', 2, 'review Mosteiro dos Geronimos tour13', 'ingles', timestamp '2019-06-03 10:03:30', 13, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id) 
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
