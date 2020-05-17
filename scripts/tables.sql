@@ -355,6 +355,30 @@ begin
 	end;
 /
 
+-- Trigger to ensure attraction_id is read-only
+create or replace trigger readOnlyAttractionId
+before update of attraction_id on attractions
+begin
+    Raise_Application_Error (-20099, 'Attraction ID is read-only!');
+end;
+/
+
+-- Trigger to ensure picture_id is read-only
+create or replace trigger readOnlyPictureId
+before update of picture_id on pictures
+begin
+    Raise_Application_Error (-20098, 'Picture ID is read-only!');
+end;
+/
+
+-- Trigger to ensure attraction_id is read-only
+create or replace trigger readOnlyTouristId
+before update of tourist_id on tourists
+begin
+    Raise_Application_Error (-20097, 'Tourist ID is read-only!');
+end;
+/
+
 -- Add some languages
 insert into languages(language) values('portugues');
 insert into languages(language) values('ingles');
@@ -895,5 +919,3 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq
 -- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
-
-select * from tourist_speaks where tourist_id = 6;
