@@ -415,6 +415,44 @@ create or replace procedure insert_tourist (
         commit;
     end;
 /
+--Trigger to ensure attraction has at least one picture on picture deletion
+create or replace trigger lastPicture 
+    after delete on pictures
+    declare picNum number;
+    attrNum number;
+    begin
+        select count(distinct attraction_id)
+        into picNum
+        from pictures;
+        select count(distinct attraction_id)
+        into attrNum
+        from attractions;
+
+        if(picNum != attrNum) 
+            then Raise_Application_Error(-20096, 'Attraction must always have at least one picture!');
+        end if;
+    end;
+/
+
+--Trigger to ensure attraction has at least one schedule on schedule deletion
+create or replace trigger lastSchedule 
+    after delete on schedules_of
+    declare schedNum number;
+    attrNum number;
+    begin
+        select count(distinct attraction_id)
+        into schedNum
+        from schedules_of;
+        select count(distinct atraction_id)
+        into attrNum
+        from attractons;
+
+        if(schedNum != attrNum) 
+            then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
+        end if;
+    end;
+/
+
 -- Add some languages
 insert into languages(language) values('portugues');
 insert into languages(language) values('ingles');
