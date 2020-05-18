@@ -797,6 +797,11 @@ E este, tambem, o principio do restaurante do Palacio do Governador, em que cada
 o sabor trazido pelos melhores produtos da terra e do mar.',
 '+351212467800', 'https://www.palaciogovernador.com/restaurante-e-bar.html', 'O mais Portugues de Portugal');
 
+
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-19 07:03:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-11-19 07:03:05', null, seq_attr_id.currval);
+
 insert into serves(food_type, attraction_id) values('Portugues', seq_attr_id.currval);
 
 --needs fixing vvv currval-1??
@@ -837,6 +842,8 @@ values(40.69491, -7.21472, 'Restaurante Fake News I',
 'Neste restaurante falso come-se comida verdadeira.',
 '+351212487800', 'https://www.fake1.com/restaurante-e-bar.html', 'Bacalhau à Lagareiro');
 
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
+
 insert into serves(food_type, attraction_id) values('Peixe', seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
@@ -873,6 +880,8 @@ insert into attr_restaurants(latitude, longitude, attraction_name, attraction_de
 values(42.69491, -7.21472, 'Restaurante Fake News II',
 'Neste restaurante falso tambem se come comida verdadeira.',
 '+351212467800', 'https://www.fake2.com/restaurante-e-bar.html', 'Salmao');
+
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
 
 insert into serves(food_type, attraction_id) values('Sushi', seq_attr_id.currval);
 
@@ -911,8 +920,11 @@ values(40.69491, -7.21472, 'Restaurante Fake News III',
 'Este restaurante falso é melhor que os outros.',
 '+351212587800', 'https://www.fake3.com/restaurante-e-bar.html', 'Pizza de Pepperoni');
 
-insert into serves(food_type, attraction_id) values('Pizzaria', seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-19 07:03:05', null, seq_attr_id.currval);
+insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-11-19 07:03:05', null, seq_attr_id.currval);
 
+insert into serves(food_type, attraction_id) values('Pizzaria', seq_attr_id.currval);
 
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
