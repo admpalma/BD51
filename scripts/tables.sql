@@ -166,6 +166,7 @@ create table belongs_to(
     on delete cascade,
     constraint fk_belongToHotel foreign key(hotel_id) references hotels(attraction_id)
     on delete cascade,
+    constraint oneHotelPerRestaurant unique(restaurant_id),
     constraint pk_belongTo primary key(restaurant_id, hotel_id)
 );
 
