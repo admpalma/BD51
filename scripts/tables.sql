@@ -416,8 +416,8 @@ create or replace procedure insert_tourist (
     end;
 /
 --Trigger to ensure attraction has at least one picture on picture deletion
-create or replace trigger lastPicture 
-    after insert or delete on pictures
+create or replace trigger lastPicture
+    after delete on pictures
     declare picNum number;
     attrNum number;
     begin
@@ -428,14 +428,14 @@ create or replace trigger lastPicture
         into attrNum
         from attractions;
 
-        if(picNum != attrNum) 
+        if(picNum != attrNum)
             then Raise_Application_Error(-20096, 'Attraction must always have at least one picture!');
         end if;
     end;
 /
 
 --Trigger to ensure attraction has at least one schedule on schedule deletion
-create or replace trigger lastSchedule 
+create or replace trigger lastSchedule
     after delete on schedules_of
     declare schedNum number;
     attrNum number;
@@ -447,7 +447,7 @@ create or replace trigger lastSchedule
         into attrNum
         from attractions;
 
-        if(schedNum != attrNum) 
+        if(schedNum != attrNum)
             then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
         else  commit;
               delete from schedules where exists ( select * from schedules minus
