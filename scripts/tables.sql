@@ -562,26 +562,6 @@ create or replace procedure insert_restaurant (
     end;
 /
 
-
--- Trigger to ensure attraction has at least one picture on picture deletion
-create or replace trigger lastPicture
-    after delete or insert on pictures
-    declare picNum number;
-    attrNum number;
-    begin
-        select count(distinct attraction_id)
-        into picNum
-        from pictures;
-        select count(distinct attraction_id)
-        into attrNum
-        from attractions;
-
-        if(picNum != attrNum)
-            then Raise_Application_Error(-20096, 'Attraction must always have at least one picture!');
-        end if;
-    end;
-/
-
 -- Trigger to ensure attraction has at least one picture on picture deletion
 create or replace trigger lastPicture
     after delete on pictures
@@ -601,29 +581,6 @@ create or replace trigger lastPicture
     end;
 /
 
--- TODO TRIGGER FOR REMOVE ON SCHEDULE INSTEAD OF SCHEDULE_OF
-
--- TODO USELESS TRIGGER ATM
--- Trigger to ensure attraction has at least one schedule on schedule deletion
-create or replace trigger lastSchedule
-    after delete on schedules
-    declare schedulesNum number;
-    attrNum number;
-    begin
-        select count(*)
-        into schedulesNum
-        from schedules
-        group by start_date, end_date, opening_time, closing_time;
-        select count(distinct attraction_id)
-        into attrNum
-        from attractions;
-
-        if(schedulesNum != attrNum)
-            then Raise_Application_Error(-20094, 'Attraction must always have at least one schedule!');
-        end if;
-    end;
-/
-
 -- Trigger to delete schedule if no attraction has it and ensure attraction has at least one
 create or replace trigger lastScheduleOf
     after delete on schedules_of
@@ -639,10 +596,12 @@ create or replace trigger lastScheduleOf
 
         if(schedNum != attrNum)
             then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
-        else  commit;
-              delete from schedules where exists ( select * from schedules
-                                                    minus
-                                                    select distinct start_date, end_date, opening_time, closing_time from schedules_of);
+        else
+            delete from schedules
+            where exists ( select * from schedules
+                          minus
+                          select distinct start_date, end_date, opening_time, closing_time
+                          from schedules_of);
         end if;
     end;
 /
