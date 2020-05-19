@@ -64,7 +64,7 @@ create table employee_speaks(
     attraction_id number(11,0),
     language varchar2(20),
     constraint fk_empSpeakAtr foreign key(attraction_id) references attractions (attraction_id)
-    on delete cascade,
+    on delete cascade deferrable,
     constraint fk_empSpeakLang foreign key(language) references languages(language),
     constraint pk_empSpeak primary key (language, attraction_id)
 );
@@ -202,8 +202,8 @@ create table schedules_of(
     closing_time timestamp,
     attraction_id number(11,0),
     constraint fk_scheduleOfSch foreign key(start_date, end_date, opening_time, closing_time)
-        references schedules(start_date, end_date, opening_time, closing_time),
-    constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id),
+        references schedules(start_date, end_date, opening_time, closing_time) deferrable,
+    constraint fk_scheduleOfAtr foreign key(attraction_id) references attractions(attraction_id) on delete cascade deferrable,
     constraint pk_scheduleOf primary key(start_date, end_date, opening_time, closing_time, attraction_id)
 );
 
@@ -372,6 +372,21 @@ create or replace trigger attractionHasPicture
     end;
 /
 
+-- Trigger to ensure an attraction has at least one picture
+create or replace trigger attractionHasSchedule
+    after insert on attractions
+    for each row
+    declare counter number;
+    begin
+        select count(*) into counter
+        from schedules_of
+        where attraction_id = :new.attraction_id;
+        if(counter = 0)
+            then Raise_Application_Error (-20088, 'Attraction must have at least one picture!');
+        end if;
+    end;
+/
+
 -- Procedure to insert an attraction with at least one picture
 create or replace procedure insert_attraction (
     lat in number,
@@ -383,16 +398,42 @@ create or replace procedure insert_attraction (
     pic_descr in varchar2,
     pic_date in timestamp,
     pic_photographer in varchar2,
-    attr_id in number
+    attr_id in number,
+    empl_lang in varchar2,
+    attr_start_date in date,
+    attr_end_date in date,
+    attr_opening_time in timestamp,
+    attr_closing_time in timestamp
 )
-    is
+    is counter number;
     begin
 
-        execute immediate 'set constraint fk_picture deferred';
+        execute immediate 'set constraint fk_picture, fk_empSpeakAtr, fk_scheduleOfSch, fk_scheduleOfAtr deferred';
+
         insert into pictures(picture_descr, picture_date, photographer, attraction_id)
-                    values (pic_descr, pic_date, pic_photographer, attr_id);
+        values (pic_descr, pic_date, pic_photographer, attr_id);
+
+        insert into employee_speaks(attraction_id, language) values(attr_id, empl_lang);
+
+
+        select count(*) into counter
+        from schedules
+        where
+                attr_start_date = start_date and
+                attr_end_date = end_date and
+                attr_opening_time = opening_time and
+                attr_closing_time = closing_time;
+
+				insert into schedules_of(start_date, end_date, opening_time, closing_time, attraction_id) values (attr_start_date, attr_end_date, attr_opening_time, attr_closing_time, attr_id);
+
+        if (counter = 0)
+        then
+			insert into schedules(start_date, end_date, opening_time, closing_time) values (attr_start_date, attr_end_date, attr_opening_time, attr_closing_time);
+        end if;
+
         insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website)
-                        values (lat, lon, attr_id, attr_name, attr_descr, attr_phone, attr_website);
+        values (lat, lon, attr_id, attr_name, attr_descr, attr_phone, attr_website);
+
         commit;
     end;
 /
@@ -408,7 +449,12 @@ create or replace procedure insert_museum (
     pic_descr in varchar2,
     pic_date in timestamp,
     pic_photographer in varchar2,
-    m_theme in varchar2
+    m_theme in varchar2,
+    empl_lang in varchar2,
+    attr_start_date in date,
+    attr_end_date in date,
+    attr_opening_time in timestamp,
+    attr_closing_time in timestamp
 )
  is attr_id number;
     begin
@@ -420,7 +466,7 @@ create or replace procedure insert_museum (
 
         insert into museums(attraction_id, theme) values (attr_id, m_theme);
 
-        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id);
+        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id, empl_lang, attr_start_date, attr_end_date, attr_opening_time, attr_closing_time);
 
         commit;
     end;
@@ -440,7 +486,12 @@ create or replace procedure insert_hotel (
     h_stars in varchar2,
     h_pool in char,
     h_spa in char,
-    h_gym in char
+    h_gym in char,
+    empl_lang in varchar2,
+    attr_start_date in date,
+    attr_end_date in date,
+    attr_opening_time in timestamp,
+    attr_closing_time in timestamp
 )
  is attr_id number;
     begin
@@ -452,7 +503,7 @@ create or replace procedure insert_hotel (
 
         insert into hotels(attraction_id, stars, hasPool, hasSpa, hasGym) values (attr_id, h_stars, h_pool, h_spa, h_gym);
 
-        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id);
+        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id, empl_lang, attr_start_date, attr_end_date, attr_opening_time, attr_closing_time);
 
         commit;
     end;
@@ -486,7 +537,12 @@ create or replace procedure insert_restaurant (
     pic_date in timestamp,
     pic_photographer in varchar2,
     r_dish in varchar2,
-    r_food_type in varchar2
+    r_food_type in varchar2,
+    empl_lang in varchar2,
+    attr_start_date in date,
+    attr_end_date in date,
+    attr_opening_time in timestamp,
+    attr_closing_time in timestamp
 )
  is attr_id number;
     begin
@@ -500,14 +556,33 @@ create or replace procedure insert_restaurant (
 
         insert into restaurants(attraction_id, main_dish) values (attr_id, r_dish);
 
-        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id);
+        insert_attraction (lat, lon, attr_name, attr_descr, attr_phone, attr_website, pic_descr, pic_date, pic_photographer, attr_id, empl_lang, attr_start_date, attr_end_date, attr_opening_time, attr_closing_time);
 
         commit;
     end;
 /
 
 
---Trigger to ensure attraction has at least one picture on picture deletion
+-- Trigger to ensure attraction has at least one picture on picture deletion
+create or replace trigger lastPicture
+    after delete or insert on pictures
+    declare picNum number;
+    attrNum number;
+    begin
+        select count(distinct attraction_id)
+        into picNum
+        from pictures;
+        select count(distinct attraction_id)
+        into attrNum
+        from attractions;
+
+        if(picNum != attrNum)
+            then Raise_Application_Error(-20096, 'Attraction must always have at least one picture!');
+        end if;
+    end;
+/
+
+-- Trigger to ensure attraction has at least one picture on picture deletion
 create or replace trigger lastPicture
     after delete on pictures
     declare picNum number;
@@ -526,8 +601,31 @@ create or replace trigger lastPicture
     end;
 /
 
---Trigger to ensure attraction has at least one schedule on schedule deletion
+-- TODO TRIGGER FOR REMOVE ON SCHEDULE INSTEAD OF SCHEDULE_OF
+
+-- TODO USELESS TRIGGER ATM
+-- Trigger to ensure attraction has at least one schedule on schedule deletion
 create or replace trigger lastSchedule
+    after delete on schedules
+    declare schedulesNum number;
+    attrNum number;
+    begin
+        select count(*)
+        into schedulesNum
+        from schedules
+        group by start_date, end_date, opening_time, closing_time;
+        select count(distinct attraction_id)
+        into attrNum
+        from attractions;
+
+        if(schedulesNum != attrNum)
+            then Raise_Application_Error(-20094, 'Attraction must always have at least one schedule!');
+        end if;
+    end;
+/
+
+-- Trigger to delete schedule if no attraction has it and ensure attraction has at least one
+create or replace trigger lastScheduleOf
     after delete on schedules_of
     declare schedNum number;
     attrNum number;
@@ -542,9 +640,9 @@ create or replace trigger lastSchedule
         if(schedNum != attrNum)
             then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
         else  commit;
-              delete from schedules where exists ( select * from schedules minus
-                                select distinct start_date, end_date, opening_time, closing_time
-                                                   from schedules_of);
+              delete from schedules where exists ( select * from schedules
+                                                    minus
+                                                    select distinct start_date, end_date, opening_time, closing_time from schedules_of);
         end if;
     end;
 /
@@ -640,25 +738,15 @@ insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'i
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'frances');
 insert into tourist_speaks(tourist_id, language) values (seq_tour_id.currval, 'russo');
 
-
-  -- call insert_museum (20, 20, 'name', 'descr', 'phone', 'web', 'descrph', timestamp '2010-01-31 09:26:50', 'pgotogra', 'Van Cock');
-  --
-  -- call insert_hotel (20, 20, 'nameh', 'hdescr', 'hne', 'web', 'descrph', timestamp '2010-01-31 09:26:50', 'pgotogra', 5, 'T', 'F', 'T');
-  --
-  -- call insert_restaurant (20, 20, 'name', 'descr', 'phone', 'web', 'descrph', timestamp '2010-01-31 09:26:50', 'pgotogra', 'Van Cock', 'Portugues');
-
 -- To number to fix stupid sql developer bug
 call insert_museum(to_number('0,5'), to_number('-20,5'), 'Torre de Belem',
 'Construida estrategicamente na margem norte do rio Tejo entre 1514 e 1520, sob orientacao de Francisco de Arruda, a Torre de Belem e uma das joias da arquitetura do reinado de D. Manuel I.
 O monumento faz uma sintese entre a torre de menagem de tradicao medieval e o baluarte, mais largo, com a sua casamata onde se dispunham os primeiros dispositivos aptos para resistir ao fogo de artilharia. [+]',
-'+351213620034', 'http://www.torrebelem.pt/', null, timestamp '2010-01-31 09:26:50', null, 'Torre de Belem (tema)');
+'+351213620034', 'http://www.torrebelem.pt/', null, timestamp '2010-01-31 09:26:50', null, 'Torre de Belem (tema)', 'portugues', date '2001-04-30', date '2001-05-30', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2015-05-31 10:30:54', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values('Torre de Belem, perfil, noite', timestamp '2019-06-01 23:03:30','Joao Bravo' , seq_attr_id.currval);
 
---Missing schedule
-
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
@@ -698,12 +786,11 @@ values (date '2019-06-04', 4, 'review Torre de Belem tour9', 'italiano', timesta
 
 call insert_museum(to_number('38,69789'), to_number('-9,20670'), 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]',
-'+351213620034', 'http://www.mosteirojeronimos.pt/', null, timestamp '2019-10-21 12:26:40', 'John Miller', 'Mosteiro dos Jerónimos(tema)');
+'+351213620034', 'http://www.mosteirojeronimos.pt/', null, timestamp '2019-10-21 12:26:40', 'John Miller', 'Mosteiro dos Jerónimos(tema)', 'portugues', date '2001-04-29', date '2001-05-29', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2018-12-23 15:06:10', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-01-30 17:00:50', null, seq_attr_id.currval);
 
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
@@ -742,12 +829,11 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 8 ,seq
 
 call insert_museum(to_number('38,72079'), to_number('-9,11705'), 'Museu Nacional do Azulejo',
 'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express�o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.',
-'+351218100340' ,'http://www.museudoazulejo.pt/', null, timestamp '2020-01-01 12:31:12', null, 'Azulejo(tema)');
+'+351218100340' ,'http://www.museudoazulejo.pt/', null, timestamp '2020-01-01 12:31:12', null, 'Azulejo(tema)', 'portugues', date '2001-04-28', date '2001-05-28', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2000-06-10 10:28:31', 'Maria Jose', seq_attr_id.currval);
 
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
@@ -788,7 +874,7 @@ insert into reviews(review_date, rating, review_text, language, arrival_time, to
 values (date '2019-06-04', 3, 'review Azulejos tour9', 'italiano', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 call insert_hotel (to_number('40,67611'), to_number('7,70694'), 'Casa da Insua', 'Perfeitamente integrado num Palacete Barroco do sec. XVIII, onde cada sala e cada recanto nos transportam para a historia dos seus proprietarios e para momentos da historia de Portugal e do Brasil, o Parador Casa da Insua conjuga passado e presente, com detalhes que fazem os seus visitantes sentir-se como parte dessa historia.',
-'+351232640110', 'https://montebelohotels.com/parador-casa-insua/pt/home', null, timestamp '2019-12-24 15:05:23', 'Joseph Walks', 5, 'T', 'F', 'F');
+'+351232640110', 'https://montebelohotels.com/parador-casa-insua/pt/home', null, timestamp '2019-12-24 15:05:23', 'Joseph Walks', 5, 'T', 'F', 'F', 'portugues', date '2001-04-27', date '2001-05-27', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:09:30', 'Joseph Walks', seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 15:20:49', 'Joseph Walks', seq_attr_id.currval);
@@ -797,8 +883,6 @@ insert into pictures(picture_descr, picture_date, photographer, attraction_id) v
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:59:37', 'Joseph Walks', seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-09 07:03:05', null, seq_attr_id.currval);
 
-
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
@@ -835,12 +919,10 @@ values (date '2019-06-04', 4, 'review Casa Insua tour9', 'italiano', timestamp '
 
 call insert_hotel (to_number('38,69491'), to_number('-9,21472'), 'Palacio do Governador',
 'Nao e apenas mais um hotel em Lisboa. E o Palacio do Governador, com 60 quartos, todos diferentes, junto ao rio Tejo, em pleno centro historico de Belem, numa das zonas mais bonitas e emblematicas da capital. Este emblematico hotel de charme faz reviver um legado historico impar, ao mesmo tempo que enaltece a qualidade, exclusividade e requinte.',
-'+351213007009', 'https://www.palaciogovernador.com/', null, timestamp '2019-03-29 11:12:05', null, 5, 'T', 'T', 'T');
+'+351213007009', 'https://www.palaciogovernador.com/', null, timestamp '2019-03-29 11:12:05', null, 5, 'T', 'T', 'T', 'portugues', date '2001-04-26', date '2001-05-26', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-05-18 17:23:12', null, seq_attr_id.currval);
 
-
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'chines');
@@ -879,7 +961,7 @@ call insert_restaurant (to_number('38,69491'), to_number('-9,21472'), 'Restauran
 'Uma anfora guarda a mais pura essencia das coisas e liberta-as do que nao e primordial.
 E este, tambem, o principio do restaurante do Palacio do Governador, em que cada prato servido acentua nao mais que o essencial:
 o sabor trazido pelos melhores produtos da terra e do mar.',
-'+351212467800', 'https://www.palaciogovernador.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'O mais Portugues de Portugal', 'Portugues');
+'+351212467800', 'https://www.palaciogovernador.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'O mais Portugues de Portugal', 'Portugues', 'portugues', date '2001-04-25', date '2001-05-25', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-19 07:03:05', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-11-19 07:03:05', null, seq_attr_id.currval);
@@ -919,7 +1001,7 @@ values (date '2019-06-04', 4, 'review Anfora tour9', 'espanhol', timestamp '2019
 
 call insert_restaurant (to_number('40,69491'), to_number('-7,21472'), 'Restaurante Fake News I',
 'Neste restaurante falso come-se comida verdadeira.',
-'+351212487800', 'https://www.fake1.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Bacalhau à Lagareiro', 'Peixe');
+'+351212487800', 'https://www.fake1.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Bacalhau à Lagareiro', 'Peixe', 'portugues', date '2001-04-23', date '2001-05-23', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
@@ -953,7 +1035,7 @@ values (date '2019-06-04', 3, 'review FAKE1 tour9', 'espanhol', timestamp '2019-
 
 call insert_restaurant (to_number('42,69491'), to_number('-7,21472'), 'Restaurante Fake News II',
 'Neste restaurante falso tambem se come comida verdadeira.',
-'+351212467800', 'https://www.fake2.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Salmao', 'Sushi');
+'+351212467800', 'https://www.fake2.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Salmao', 'Sushi', 'portugues', date '2001-04-22', date '2001-05-22', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
@@ -987,12 +1069,11 @@ values (date '2019-06-04', 5, 'review FAKE2 tour9', 'espanhol', timestamp '2019-
 
 call insert_restaurant (to_number('40,69491'), to_number('-7,21472'), 'Restaurante Fake News III',
 'Este restaurante falso é melhor que os outros.',
-'+351212587800', 'https://www.fake3.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Pizza de Pepperoni', 'Pizzaria');
+'+351212587800', 'https://www.fake3.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Pizza de Pepperoni', 'Pizzaria', 'portugues', date '2001-04-29', date '2001-05-29', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-19 07:03:05', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-11-19 07:03:05', null, seq_attr_id.currval);
 
-insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'portugues');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'ingles');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'espanhol');
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'frances');
