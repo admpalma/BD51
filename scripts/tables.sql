@@ -416,20 +416,7 @@ create or replace procedure insert_attraction (
         insert into employee_speaks(attraction_id, language) values(attr_id, empl_lang);
 
 
-        select count(*) into counter
-        from schedules
-        where
-                attr_start_date = start_date and
-                attr_end_date = end_date and
-                attr_opening_time = opening_time and
-                attr_closing_time = closing_time;
-
-				insert into schedules_of(start_date, end_date, opening_time, closing_time, attraction_id) values (attr_start_date, attr_end_date, attr_opening_time, attr_closing_time, attr_id);
-
-        if (counter = 0)
-        then
-			insert into schedules(start_date, end_date, opening_time, closing_time) values (attr_start_date, attr_end_date, attr_opening_time, attr_closing_time);
-        end if;
+     	insert into schedules_of(start_date, end_date, opening_time, closing_time, attraction_id) values (attr_start_date, attr_end_date, attr_opening_time, attr_closing_time, attr_id);
 
         insert into attractions(latitude, longitude, attraction_id, attraction_name, attraction_descr, attraction_phone, attraction_website)
         values (lat, lon, attr_id, attr_name, attr_descr, attr_phone, attr_website);
@@ -596,13 +583,32 @@ create or replace trigger lastScheduleOf
 
         if(schedNum != attrNum)
             then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
-        else
-            delete from schedules
-            where exists ( select * from schedules
-                          minus
-                          select distinct start_date, end_date, opening_time, closing_time
-                          from schedules_of);
+        else delete from schedules
+            where (start_date, end_date, opening_time, closing_time) in (select * from schedules
+                minus
+                select distinct start_date, end_date, opening_time, closing_time
+                from schedules_of);
         end if;
+    end;
+/
+
+create or replace trigger insert_schedules_of 
+    before insert on schedules_of
+    for each row
+    declare counter number;
+    begin
+        select count(*)
+        into counter
+        from schedules
+        where start_date = :new.start_date
+        and end_date = :new.end_date
+        and opening_time = :new.opening_time
+        and closing_time = :new.closing_time;
+        
+        if(counter < 1)
+         then insert into schedules(start_date, end_date, opening_time, closing_time)
+         values (:new.start_date, :new.end_date, :new.opening_time, :new.closing_time);
+         end if;
     end;
 /
 
