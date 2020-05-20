@@ -336,6 +336,22 @@ create or replace trigger TouristHasToSpeak
     end;
 /
 
+--Trigger to ensure an attraction's empployees speak at least one language
+create or replace trigger employeesHaveToSpeak
+    after insert on attractions
+    for each row
+    declare counter number;
+    begin
+        select count(*)
+        into counter
+        from employee_speaks
+        where attraction_id = :new.attraction_id;
+        if(counter < 1)
+            then Raise_Application_Error (-20094, 'Attraction employees must speak at least one language');
+        end if;
+    end;
+/
+
 -- Procedure to insert tourist and making sure he speaks at least one language
 create or replace procedure insert_tourist (
     tour_name in varchar2,

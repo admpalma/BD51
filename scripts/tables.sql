@@ -336,6 +336,22 @@ create or replace trigger TouristHasToSpeak
     end;
 /
 
+--Trigger to ensure an attraction's empployees speak at least one language
+create or replace trigger employeesHaveToSpeak
+    after insert on attractions
+    for each row
+    declare counter number;
+    begin
+        select count(*)
+        into counter
+        from employee_speaks
+        where attraction_id = :new.attraction_id;
+        if(counter < 1)
+            then Raise_Application_Error (-20094, 'Attraction employees must speak at least one language');
+        end if;
+    end;
+/
+
 -- Procedure to insert tourist and making sure he speaks at least one language
 create or replace procedure insert_tourist (
     tour_name in varchar2,
@@ -583,8 +599,10 @@ create or replace trigger lastScheduleOf
 
         if(schedNum != attrNum)
             then Raise_Application_Error(-20095, 'Attraction must always have at least one schedule!');
-        else delete from schedules
-            where (start_date, end_date, opening_time, closing_time) in (select * from schedules
+        else
+            delete from schedules
+            where (start_date, end_date, opening_time, closing_time) in (
+                select * from schedules
                 minus
                 select distinct start_date, end_date, opening_time, closing_time
                 from schedules_of);
@@ -592,7 +610,7 @@ create or replace trigger lastScheduleOf
     end;
 /
 
-create or replace trigger insert_schedules_of 
+create or replace trigger insert_schedules_of
     before insert on schedules_of
     for each row
     declare counter number;
@@ -604,7 +622,7 @@ create or replace trigger insert_schedules_of
         and end_date = :new.end_date
         and opening_time = :new.opening_time
         and closing_time = :new.closing_time;
-        
+
         if(counter < 1)
          then insert into schedules(start_date, end_date, opening_time, closing_time)
          values (:new.start_date, :new.end_date, :new.opening_time, :new.closing_time);
