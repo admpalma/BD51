@@ -33,7 +33,8 @@ create table attractions(
     attraction_website varchar2(2000) not null,
     constraint pk_attraction primary key(attraction_id),
     constraint latitudeLimit check(latitude <= 90 and latitude >= -90),
-    constraint longitudeLimit check(longitude <= 180 and longitude >= -180)
+    constraint longitudeLimit check(longitude <= 180 and longitude >= -180),
+    constraint uniquePhone unique(attraction_phone)
 );
 
 create sequence seq_attr_id
@@ -800,7 +801,7 @@ values (date '2019-06-04', 4, 'review Torre de Belem tour9', 'italiano', timesta
 
 begin insert_museum(38.69789, -9.20670, 'Mosteiro dos Jeronimos',
 'Ligado simbolicamente aos mais importantes momentos da memoria nacional, o Mosteiro dos Jeronimos (ou Real Mosteiro de Santa Maria de Belem) foi fundado pelo rei D. Manuel I no inicio do seculo XVI. As obras iniciaram-se justamente no virar do seculo, lancando-se a primeira pedra na data simbolica de 6 de Janeiro (dia de Reis) de 1501 ou 1502.[+]',
-'+351213620034', 'http://www.mosteirojeronimos.pt/', null, timestamp '2019-10-21 12:26:40', 'John Miller', 'Mosteiro dos Jerónimos(tema)', 'portugues', date '2001-04-29', date '2001-05-29', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
+'+351213620035', 'http://www.mosteirojeronimos.pt/', null, timestamp '2019-10-21 12:26:40', 'John Miller', 'Mosteiro dos Jerónimos(tema)', 'portugues', date '2001-04-29', date '2001-05-29', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 end;
 /
 
@@ -1061,7 +1062,7 @@ values (date '2019-06-04', 3, 'review FAKE1 tour9', 'espanhol', timestamp '2019-
 
 begin insert_restaurant (42.69491, -7.21472, 'Restaurante Fake News II',
 'Neste restaurante falso tambem se come comida verdadeira.',
-'+351212467800', 'https://www.fake2.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Salmao', 'Sushi', 'portugues', date '2001-04-22', date '2001-05-22', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
+'+351212467801', 'https://www.fake2.com/restaurante-e-bar.html', null, timestamp '2019-12-09 07:03:05', null, 'Salmao', 'Sushi', 'portugues', date '2001-04-22', date '2001-05-22', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 end;
 /
 
@@ -1142,25 +1143,25 @@ insert into reviews(review_date, rating, review_text, language, arrival_time, to
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
 create or replace FUNCTION calc_number_ratings(attraction NUMBER) RETURN NUMBER
-IS 
-numberOfRatings NUMBER; 
-BEGIN 
+IS
+numberOfRatings NUMBER;
+BEGIN
 SELECT count(rating)
-INTO numberOfRatings 
-FROM reviews inner join attractions using (attraction_id) 
+INTO numberOfRatings
+FROM reviews inner join attractions using (attraction_id)
 WHERE attraction = attraction_id;
-RETURN numberOfRatings; 
+RETURN numberOfRatings;
 END calc_number_ratings;
 /
 
 create or replace FUNCTION calc_ratings(attraction NUMBER) RETURN NUMBER
-IS 
-totalRatings NUMBER; 
-BEGIN 
+IS
+totalRatings NUMBER;
+BEGIN
 SELECT sum(rating)
-INTO totalRatings 
-FROM reviews inner join attractions using (attraction_id) 
+INTO totalRatings
+FROM reviews inner join attractions using (attraction_id)
 WHERE attraction = attraction_id;
-RETURN totalRatings; 
+RETURN totalRatings;
 END calc_ratings;
 /
