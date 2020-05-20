@@ -1151,6 +1151,7 @@ FROM reviews inner join attractions using (attraction_id)
 WHERE attraction = attraction_id;
 RETURN numberOfRatings; 
 END calc_number_ratings;
+/
 
 create or replace FUNCTION calc_ratings(attraction NUMBER) RETURN NUMBER
 IS 
@@ -1162,3 +1163,4 @@ FROM reviews inner join attractions using (attraction_id)
 WHERE attraction = attraction_id;
 RETURN totalRatings; 
 END calc_ratings;
+/
