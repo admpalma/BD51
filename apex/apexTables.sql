@@ -1124,3 +1124,25 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq
 -- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
+
+create or replace FUNCTION calc_number_ratings(attraction NUMBER) RETURN NUMBER
+IS 
+numberOfRatings NUMBER; 
+BEGIN 
+SELECT count(rating)
+INTO numberOfRatings 
+FROM reviews inner join attractions using (attraction_id) 
+WHERE attraction = attraction_id;
+RETURN numberOfRatings; 
+END calc_number_ratings;
+
+create or replace FUNCTION calc_ratings(attraction NUMBER) RETURN NUMBER
+IS 
+totalRatings NUMBER; 
+BEGIN 
+SELECT sum(rating)
+INTO totalRatings 
+FROM reviews inner join attractions using (attraction_id) 
+WHERE attraction = attraction_id;
+RETURN totalRatings; 
+END calc_ratings;
