@@ -109,6 +109,8 @@ create table reviews(
     constraint fk_reviewVisit foreign key(arrival_time, tourist_id, attraction_id)
         references visits(arrival_time, tourist_id, attraction_id)
         on delete cascade,
+        constraint fk_reviewTourist foreign key(tourist_id) references tourists(tourist_id),
+    constraint fk_reviewAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
     constraint ratingLimit check(rating >= 1 and rating <= 5),
     constraint reviewAfterArrival check(review_date - arrival_time > interval '0' second)
