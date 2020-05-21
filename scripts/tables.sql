@@ -1141,7 +1141,7 @@ END calc_ratings;
 -- Queries
 
 -- Quais as avalia��es escritas em portugu�s cujo rating seja maior ou igual que 3,
--- dizendo para cada avalia��o a atra��o, o coment�rio e o nome do autor? 
+-- dizendo para cada avalia��o a atra��o, o coment�rio e o nome do autor?
 select attraction_name, review_text, tourist_name
 from reviews inner join tourists using (tourist_id) inner join attractions using (attraction_id)
 where language = 'portugues' and rating >= 3;
@@ -1163,9 +1163,10 @@ select departure_time - arrival_time
 from visits;
 
 -- Quais s�o os museus que est�o abertos � noite?
-select attraction_name
+select distinct attraction_name
 from museums inner join attractions using(attraction_id) inner join schedules_of using(attraction_id)
-; -- TODO
+where schedules_of.opening_time <= timestamp '0001-01-01 20:00:00' and
+    schedules_of.closing_time >= timestamp '0001-01-01 23:00:00';
 
 
 -- For each attraction name, what is the average ratings of that attraction?
@@ -1178,8 +1179,8 @@ from attractions
 where (calc_ratings(attraction_id) / calc_number_ratings(attraction_id)) >= 4;
 
 -- Quais as atra��es visitadas por todos os turistas que j� visitaram a atra��o X,
--- dizendo para cada atra��o o nome, a classifica��o geral, o contacto telef�nico e o website? 
-select distinct X.attraction_name, calc_ratings(X.attraction_id) / calc_number_ratings(X.attraction_id) as "Average Rating", 
+-- dizendo para cada atra��o o nome, a classifica��o geral, o contacto telef�nico e o website?
+select distinct X.attraction_name, calc_ratings(X.attraction_id) / calc_number_ratings(X.attraction_id) as "Average Rating",
                                                 X.attraction_phone as "Phone", X.attraction_website as "Website"
 from attractions inner join visits using(attraction_id) as X;
 
@@ -1190,10 +1191,10 @@ with touristsX as (select tourist_id from visits inner join attractions using(at
 select distinct X.attraction_id
 from visits as X
 where not exists (
-    (select tourist_id 
+    (select tourist_id
     from touristsX)
     except
-    (select Y.tourist_id 
+    (select Y.tourist_id
     from visits as Y
     where X.attraction_id = Y.attraction_id)
 );
@@ -1203,6 +1204,3 @@ select distinct X.A from r as X
 where not exists ((select B from s)
 except
 (select Y.B from r as Y where X.A = Y.A))
-
-
-
