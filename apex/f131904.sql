@@ -28,7 +28,7 @@ prompt APPLICATION 131904 - BD51-Project
 -- Application Export:
 --   Application:     131904
 --   Name:            BD51-Project
---   Date and Time:   23:04 Wednesday May 20, 2020
+--   Date and Time:   13:38 Thursday May 21, 2020
 --   Exported By:     JLO.SOUSA@CAMPUS.FCT.UNL.PT
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,7 +36,7 @@ prompt APPLICATION 131904 - BD51-Project
 --       Items:                   74
 --       Validations:              3
 --       Processes:               14
---       Regions:                 36
+--       Regions:                 39
 --       Buttons:                 25
 --     Shared Components:
 --       Logic:
@@ -107,7 +107,7 @@ wwv_flow_api.create_flow(
 ,p_csv_encoding=>'Y'
 ,p_friendly_url=>'N'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520230255'
+,p_last_upd_yyyymmddhh24miss=>'20200521132420'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_ui_type_name => null
 );
@@ -9349,7 +9349,7 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520141925'
+,p_last_upd_yyyymmddhh24miss=>'20200521112643'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17542382594851152060)
@@ -9449,12 +9449,16 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>40
 ,p_item_plug_id=>wwv_flow_api.id(17542382594851152060)
 ,p_prompt=>'Nationality'
-,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_display_as=>'NATIVE_AUTO_COMPLETE'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select distinct nationality',
+'  from tourists'))
 ,p_cSize=>30
 ,p_field_template=>wwv_flow_api.id(19085269213123356532)
 ,p_item_template_options=>'#DEFAULT#'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'NONE'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'CONTAINS_IGNORE'
+,p_attribute_04=>'N'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(17542385449348152065)
@@ -9504,7 +9508,7 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520230255'
+,p_last_upd_yyyymmddhh24miss=>'20200521114046'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17615721003598426224)
@@ -9602,7 +9606,6 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_label=>'Website'
 ,p_column_type=>'STRING'
 ,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(19094340350195941046)
@@ -9637,11 +9640,11 @@ wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(17726069233267512716)
 ,p_button_sequence=>10
 ,p_button_plug_id=>wwv_flow_api.id(19094338244632941043)
-,p_button_name=>'Add_Pictures'
+,p_button_name=>'Edit_Pictures'
 ,p_button_action=>'REDIRECT_PAGE'
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_api.id(19085269788252356533)
-,p_button_image_alt=>'Add Pictures'
+,p_button_image_alt=>'Edit Pictures'
 ,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
 ,p_button_redirect_url=>'f?p=&APP_ID.:15:&SESSION.::&DEBUG.:::'
 );
@@ -11659,7 +11662,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520224247'
+,p_last_upd_yyyymmddhh24miss=>'20200521132420'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17611935017579383603)
@@ -11679,7 +11682,9 @@ wwv_flow_api.create_page_plug(
 '       TOURIST_NAME,',
 '       ATTRACTION_NAME',
 'from REVIEWS inner join ATTRACTIONS using(attraction_id) inner join tourists using(tourist_id)',
-'where (:P13_LANGUAGES = ''-1'' or (nvl(language, ''-1'') = nvl(:P13_LANGUAGES, ''-1''))) and (:P13_ATTRACTIONS = ''-1'' or (nvl(attraction_id, ''-1'') = nvl(:P13_ATTRACTIONS, ''-1'')));'))
+'where (:P13_LANGUAGES is null or language = :P13_LANGUAGES)',
+'and',
+'(:P13_ATTRACTIONS is null or attraction_id = :P13_ATTRACTIONS);'))
 ,p_plug_source_type=>'NATIVE_IR'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_prn_content_disposition=>'ATTACHMENT'
@@ -11714,96 +11719,86 @@ wwv_flow_api.create_page_plug(
 ,p_prn_border_color=>'#666666'
 );
 wwv_flow_api.create_worksheet(
- p_id=>wwv_flow_api.id(17611935462559383603)
-,p_name=>'Report 1'
-,p_max_row_count_message=>'The maximum row count for this report is #MAX_ROW_COUNT# rows.  Please apply a filter to reduce the number of records in your query.'
-,p_no_data_found_message=>'No data found.'
+ p_id=>wwv_flow_api.id(17903638658631269810)
+,p_max_row_count=>'1000000'
 ,p_pagination_type=>'ROWS_X_TO_Y'
 ,p_pagination_display_pos=>'BOTTOM_RIGHT'
 ,p_report_list_mode=>'TABS'
-,p_show_detail_link=>'C'
+,p_show_detail_link=>'N'
+,p_show_notify=>'Y'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
-,p_detail_link=>'f?p=&APP_ID.:14:&SESSION.::&DEBUG.:RP:P14_ROWID:\#ROWID#\'
-,p_detail_link_text=>'<span aria-label="Edit"><span class="fa fa-edit" aria-hidden="true" title="Edit"></span></span>'
 ,p_owner=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_internal_uid=>17611935462559383603
+,p_internal_uid=>17903638658631269810
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17611935968106383605)
+ p_id=>wwv_flow_api.id(17903638788166269811)
 ,p_db_column_name=>'REVIEW_DATE'
-,p_display_order=>2
-,p_column_identifier=>'B'
+,p_display_order=>10
+,p_column_identifier=>'A'
 ,p_column_label=>'Review Date'
 ,p_column_type=>'DATE'
 ,p_column_alignment=>'CENTER'
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17611936395699383605)
+ p_id=>wwv_flow_api.id(17903638842099269812)
 ,p_db_column_name=>'RATING'
-,p_display_order=>3
-,p_column_identifier=>'C'
+,p_display_order=>20
+,p_column_identifier=>'B'
 ,p_column_label=>'Rating'
 ,p_column_type=>'NUMBER'
-,p_heading_alignment=>'RIGHT'
 ,p_column_alignment=>'RIGHT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17611936798828383606)
+ p_id=>wwv_flow_api.id(17903638919715269813)
 ,p_db_column_name=>'REVIEW_TEXT'
-,p_display_order=>4
-,p_column_identifier=>'D'
+,p_display_order=>30
+,p_column_identifier=>'C'
 ,p_column_label=>'Review Text'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
-,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17611937160997383606)
+ p_id=>wwv_flow_api.id(17903639090252269814)
 ,p_db_column_name=>'LANGUAGE'
-,p_display_order=>5
-,p_column_identifier=>'E'
+,p_display_order=>40
+,p_column_identifier=>'D'
 ,p_column_label=>'Language'
 ,p_column_type=>'STRING'
-,p_heading_alignment=>'LEFT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(17903639198864269815)
+,p_db_column_name=>'Date'
+,p_display_order=>50
+,p_column_identifier=>'E'
+,p_column_label=>'Date'
+,p_column_type=>'DATE'
+,p_column_alignment=>'CENTER'
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615721246425426226)
-,p_db_column_name=>'ATTRACTION_NAME'
-,p_display_order=>28
-,p_column_identifier=>'J'
-,p_column_label=>'Attraction Name'
-,p_column_type=>'STRING'
-);
-wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615721302277426227)
+ p_id=>wwv_flow_api.id(17903639274907269816)
 ,p_db_column_name=>'TOURIST_NAME'
-,p_display_order=>38
-,p_column_identifier=>'K'
+,p_display_order=>60
+,p_column_identifier=>'F'
 ,p_column_label=>'Tourist Name'
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615721463572426228)
-,p_db_column_name=>'Date'
-,p_display_order=>48
-,p_column_identifier=>'L'
-,p_column_label=>'Date'
-,p_column_type=>'DATE'
-,p_column_alignment=>'CENTER'
-,p_format_mask=>'YYYY-MM-DD HH24:MI:SS'
-,p_tz_dependent=>'N'
+ p_id=>wwv_flow_api.id(17903639398257269817)
+,p_db_column_name=>'ATTRACTION_NAME'
+,p_display_order=>70
+,p_column_identifier=>'G'
+,p_column_label=>'Attraction Name'
+,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_rpt(
- p_id=>wwv_flow_api.id(17613755620778398359)
+ p_id=>wwv_flow_api.id(17914075022064500785)
 ,p_application_user=>'APXWS_DEFAULT'
 ,p_report_seq=>10
-,p_report_alias=>'176137557'
+,p_report_alias=>'179140751'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_report_columns=>'REVIEW_DATE:RATING:REVIEW_TEXT:LANGUAGE:ATTRACTION_NAME:TOURIST_NAME:Date'
+,p_report_columns=>'REVIEW_DATE:RATING:REVIEW_TEXT:LANGUAGE:Date:TOURIST_NAME:ATTRACTION_NAME'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17611938982722383609)
@@ -11817,84 +11812,99 @@ wwv_flow_api.create_page_plug(
 ,p_plug_source_type=>'NATIVE_BREADCRUMB'
 ,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
 );
-wwv_flow_api.create_report_region(
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(17903637853614269802)
+,p_plug_name=>'New'
+,p_region_template_options=>'#DEFAULT#:t-Region--removeHeader:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_new_grid_row=>false
+,p_plug_grid_column_span=>2
+,p_plug_display_point=>'BODY'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17726068178785512705)
-,p_name=>'Attraction''s by language'
-,p_template=>wwv_flow_api.id(19085246928241356507)
-,p_display_sequence=>30
+,p_plug_name=>'Reviews in Selected Language'
+,p_parent_plug_id=>wwv_flow_api.id(17903637853614269802)
 ,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
-,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
-,p_new_grid_row=>false
-,p_grid_column_span=>1
-,p_display_column=>12
-,p_display_point=>'BODY'
-,p_source_type=>'NATIVE_SQL_REPORT'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>40
+,p_plug_new_grid_row=>false
+,p_plug_display_point=>'BODY'
 ,p_query_type=>'SQL'
-,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'SELECT count(review_date) "Number:"',
 'FROM attractions inner join reviews using (attraction_id)',
-'WHERE nvl(attraction_id,''-1'') = nvl(:P13_ATTRACTIONS,''-1'') and',
-'      nvl(language,''-1'') = nvl(:P13_LANGUAGES,''-1'')'))
-,p_ajax_enabled=>'Y'
-,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
-,p_query_num_rows=>15
-,p_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
-,p_pagination_display_position=>'BOTTOM_RIGHT'
-,p_csv_output=>'N'
-,p_prn_output=>'N'
-,p_sort_null=>'L'
-,p_plug_query_strip_html=>'N'
+'WHERE nvl(language,''-1'') = nvl(:P13_LANGUAGES, language)'))
+,p_plug_source_type=>'NATIVE_JQM_LIST_VIEW'
+,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_02=>'Number:'
 );
-wwv_flow_api.create_report_columns(
- p_id=>wwv_flow_api.id(17726069180293512715)
-,p_query_column_id=>1
-,p_column_alias=>'Number:'
-,p_column_display_sequence=>1
-,p_column_heading=>'Number:'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
-,p_derived_column=>'N'
-,p_include_in_export=>'Y'
-);
-wwv_flow_api.create_report_region(
+wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17726068618839512710)
-,p_name=>'Attraction''s total reviews'
-,p_template=>wwv_flow_api.id(19085246928241356507)
-,p_display_sequence=>20
+,p_plug_name=>'Total Reviews'
+,p_parent_plug_id=>wwv_flow_api.id(17903637853614269802)
 ,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
-,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
-,p_new_grid_row=>false
-,p_grid_column_span=>1
-,p_display_column=>11
-,p_display_point=>'BODY'
-,p_source_type=>'NATIVE_SQL_REPORT'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
 ,p_query_type=>'SQL'
-,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT count (*) "Number:"',
+'FROM reviews'))
+,p_plug_source_type=>'NATIVE_JQM_LIST_VIEW'
+,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_02=>'Number:'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(17726070987859512733)
+,p_plug_name=>'Reviews of Selected Attraction'
+,p_parent_plug_id=>wwv_flow_api.id(17903637853614269802)
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>20
+,p_plug_new_grid_row=>false
+,p_plug_display_point=>'BODY'
+,p_query_type=>'SQL'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'SELECT count(review_date) "Number:"',
 'FROM attractions inner join reviews using (attraction_id)',
-'WHERE nvl(attraction_id,''-1'') = nvl(:P13_ATTRACTIONS,''-1'')'))
-,p_ajax_enabled=>'Y'
-,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
-,p_query_num_rows=>15
-,p_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
-,p_pagination_display_position=>'BOTTOM_RIGHT'
-,p_csv_output=>'N'
-,p_prn_output=>'N'
-,p_sort_null=>'L'
-,p_plug_query_strip_html=>'N'
+'WHERE nvl(attraction_id,''-1'') = nvl(:P13_ATTRACTIONS, attraction_id)'))
+,p_plug_source_type=>'NATIVE_JQM_LIST_VIEW'
+,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_02=>'Number:'
 );
-wwv_flow_api.create_report_columns(
- p_id=>wwv_flow_api.id(17726069072496512714)
-,p_query_column_id=>1
-,p_column_alias=>'Number:'
-,p_column_display_sequence=>1
-,p_column_heading=>'Number:'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
-,p_derived_column=>'N'
-,p_include_in_export=>'Y'
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(17726072285072512746)
+,p_plug_name=>'Reviews in Current Selection'
+,p_parent_plug_id=>wwv_flow_api.id(17903637853614269802)
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_escape_on_http_output=>'Y'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>30
+,p_plug_display_point=>'BODY'
+,p_query_type=>'SQL'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT count(review_date) "Number:"',
+'FROM attractions inner join reviews using (attraction_id)',
+'WHERE',
+'nvl(attraction_id,''-1'') = nvl(:P13_ATTRACTIONS, attraction_id)',
+'and',
+'nvl(language,''-1'') = nvl(:P13_LANGUAGES, language)'))
+,p_plug_source_type=>'NATIVE_JQM_LIST_VIEW'
+,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_02=>'Number:'
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(17611940164449383610)
@@ -11923,7 +11933,6 @@ wwv_flow_api.create_page_item(
 'order by language'))
 ,p_lov_display_null=>'YES'
 ,p_lov_null_text=>'- Any language -'
-,p_lov_null_value=>'-1'
 ,p_cHeight=>1
 ,p_begin_on_new_line=>'N'
 ,p_field_template=>wwv_flow_api.id(19085269213123356532)
@@ -11946,7 +11955,6 @@ wwv_flow_api.create_page_item(
 'order by attraction_name;'))
 ,p_lov_display_null=>'YES'
 ,p_lov_null_text=>'- Any attraction -'
-,p_lov_null_value=>'-1'
 ,p_cHeight=>1
 ,p_field_template=>wwv_flow_api.id(19085269213123356532)
 ,p_item_template_options=>'#DEFAULT#'
