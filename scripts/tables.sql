@@ -1096,3 +1096,97 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq
 -- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
+
+-- Functions
+create or replace FUNCTION calc_number_ratings(attraction NUMBER) RETURN NUMBER
+IS
+numberOfRatings NUMBER;
+BEGIN
+SELECT count(rating)
+INTO numberOfRatings
+FROM reviews inner join attractions using (attraction_id)
+WHERE attraction = attraction_id;
+RETURN numberOfRatings;
+END calc_number_ratings;
+/
+
+create or replace FUNCTION calc_ratings(attraction NUMBER) RETURN NUMBER
+IS
+totalRatings NUMBER;
+BEGIN
+SELECT sum(rating)
+INTO totalRatings
+FROM reviews inner join attractions using (attraction_id)
+WHERE attraction = attraction_id;
+RETURN totalRatings;
+END calc_ratings;
+/
+
+-- Queries
+
+-- Quais as avaliações escritas em português cujo rating seja maior ou igual que 3,
+-- dizendo para cada avaliação a atração, o comentário e o nome do autor? 
+select attraction_name, review_text, tourist_name
+from reviews inner join tourists using (tourist_id) inner join attractions using (attraction_id)
+where language = 'portugues' and rating >= 3;
+
+select * from reviews where language = 'portugues';
+
+
+-- Insert this visit to test next query
+insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
+values (timestamp '2019-07-01 15:03:30', timestamp '2019-10-01 15:04:30', 9 ,seq_attr_id.currval);
+
+-- Quais os turistas que tiveram uma estadia de mais de 4 dias no hotel X,
+-- para cada turista mencionando o nome, a nacionalidade, o NIF e a data de nascimento?
+select tourist_name as "Name", nationality, nif, birth_date
+from tourists inner join visits using(tourist_id)
+where departure_time - arrival_time >= interval '4' day;
+
+select departure_time - arrival_time
+from visits;
+
+-- Quais são os museus que estão abertos à noite?
+select attraction_name
+from museums inner join attractions using(attraction_id) inner join schedules_of using(attraction_id)
+; -- TODO
+
+
+-- For each attraction name, what is the average ratings of that attraction?
+select attraction_name, calc_ratings(attraction_id) / calc_number_ratings(attraction_id) as "Average Rating"
+from attractions;
+
+-- Quais os nomes e localizações das atrações cuja avaliação geral é igual ou superior a 4?
+select attraction_name,  latitude, longitude
+from attractions
+where (calc_ratings(attraction_id) / calc_number_ratings(attraction_id)) >= 4;
+
+-- Quais as atrações visitadas por todos os turistas que já visitaram a atração X,
+-- dizendo para cada atração o nome, a classificação geral, o contacto telefónico e o website? 
+select distinct X.attraction_name, calc_ratings(X.attraction_id) / calc_number_ratings(X.attraction_id) as "Average Rating", 
+                                                X.attraction_phone as "Phone", X.attraction_website as "Website"
+from attractions inner join visits using(attraction_id) as X;
+
+
+-- visits / (tourists that visited attraction x)
+
+with touristsX as (select tourist_id from visits inner join attractions using(attraction_id) where attraction_name like '%Mosteiro%')
+select distinct X.attraction_id
+from visits as X
+where not exists (
+    (select tourist_id 
+    from touristsX)
+    except
+    (select Y.tourist_id 
+    from visits as Y
+    where X.attraction_id = Y.attraction_id)
+);
+
+-- DIVISION r / s
+select distinct X.A from r as X
+where not exists ((select B from s)
+except
+(select Y.B from r as Y where X.A = Y.A))
+
+
+
