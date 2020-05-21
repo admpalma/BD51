@@ -930,19 +930,19 @@ insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval
 insert into employee_speaks(attraction_id, language) values (seq_attr_id.currval, 'chines');
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
-values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-01 10:03:30', 2 ,seq_attr_id.currval);
+values (timestamp '2019-06-01 09:03:30', timestamp '2019-06-06 10:03:30', 2 ,seq_attr_id.currval);
 
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review Palacio tour2', 'frances', timestamp '2019-06-01 09:03:30', 2, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
-values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-01 12:03:30', 7 ,seq_attr_id.currval);
+values (timestamp '2019-05-01 09:03:30', timestamp '2019-05-03 12:03:30', 7 ,seq_attr_id.currval);
 
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-05-04', 3, 'review Palacio tour7', 'ingles', timestamp '2019-05-01 09:03:30', 7, seq_attr_id.currval);
 
 insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
-values (timestamp '2019-06-03 10:03:30', timestamp '2019-06-03 11:03:30', 15 ,seq_attr_id.currval);
+values (timestamp '2019-06-03 10:03:30', timestamp '2019-07-03 11:03:30', 15 ,seq_attr_id.currval);
 
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 5, 'review Palacio tour15', 'coreano', timestamp '2019-06-03 10:03:30', 15, seq_attr_id.currval);
@@ -1112,6 +1112,3 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq
 -- review in language constraint prevents this correctly
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
-
-insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
-values (timestamp '2019-07-01 15:03:30', timestamp '2019-10-01 15:04:30', 9 ,seq_attr_id.currval);

@@ -40,8 +40,15 @@ values (timestamp '2019-07-01 15:03:30', timestamp '2019-10-01 15:04:30', 9 ,seq
 -- Quais os turistas que tiveram uma estadia de mais de 4 dias no hotel X,
 -- para cada turista mencionando o nome, a nacionalidade, o NIF e a data de nascimento?
 select tourist_name as "Name", nationality, nif, birth_date
-from tourists inner join visits using(tourist_id)
-where departure_time - arrival_time >= interval '4' day;
+from tourists inner join visits using(tourist_id) 
+              inner join hotels using(attraction_id)
+              inner join attractions using(attraction_id)
+where attraction_name = 'Palacio do Governador' and departure_time - arrival_time >= interval '4' day;
+
+select distinct tourist_name, attraction_name
+from visits inner join tourists using(tourist_id) inner join attractions using(attraction_id);
+
+select * from hotels inner join attractions using(attraction_id) inner join visits using (attraction_id);
 
 -- Quais sao os museus que estao abertos 'a noite?
 select distinct attraction_name
