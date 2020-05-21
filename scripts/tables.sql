@@ -109,7 +109,7 @@ create table reviews(
     constraint fk_reviewVisit foreign key(arrival_time, tourist_id, attraction_id)
         references visits(arrival_time, tourist_id, attraction_id)
         on delete cascade,
-        constraint fk_reviewTourist foreign key(tourist_id) references tourists(tourist_id),
+    constraint fk_reviewTourist foreign key(tourist_id) references tourists(tourist_id),
     constraint fk_reviewAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
     constraint ratingLimit check(rating >= 1 and rating <= 5),
@@ -618,6 +618,22 @@ create or replace trigger insert_schedules_of
     for each row
     declare counter number;
     begin
+        -- Normalize timestamp for "time-only" storage
+        select to_timestamp('0001-01-01' || ' ' || to_char(:new.opening_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+        into :new.opening_time
+        from dual;
+
+        select to_timestamp('0001-01-01' || ' ' || to_char(:new.closing_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+        into :new.closing_time
+        from dual;
+
+        if (:new.opening_time > :new.closing_time) then
+            select to_timestamp('0001-01-02' || ' ' || to_char(:new.closing_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+            into :new.closing_time
+            from dual;
+        end if;
+
+        -- Find previous uses of this schedule
         select count(*)
         into counter
         from schedules
@@ -814,7 +830,7 @@ insert into visits(arrival_time, departure_time, tourist_id, attraction_id)
 values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 8 ,seq_attr_id.currval);
 
 call insert_museum(to_number('38,72079'), to_number('-9,11705'), 'Museu Nacional do Azulejo',
-'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a expressï¿½o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.',
+'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express?o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.',
 '+351218100340' ,'http://www.museudoazulejo.pt/', null, timestamp '2020-01-01 12:31:12', null, 'Azulejo(tema)', 'portugues', date '2001-04-28', date '2001-05-28', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
@@ -1124,8 +1140,8 @@ END calc_ratings;
 
 -- Queries
 
--- Quais as avaliações escritas em português cujo rating seja maior ou igual que 3,
--- dizendo para cada avaliação a atração, o comentário e o nome do autor? 
+-- Quais as avaliaï¿½ï¿½es escritas em portuguï¿½s cujo rating seja maior ou igual que 3,
+-- dizendo para cada avaliaï¿½ï¿½o a atraï¿½ï¿½o, o comentï¿½rio e o nome do autor? 
 select attraction_name, review_text, tourist_name
 from reviews inner join tourists using (tourist_id) inner join attractions using (attraction_id)
 where language = 'portugues' and rating >= 3;
@@ -1146,7 +1162,7 @@ where departure_time - arrival_time >= interval '4' day;
 select departure_time - arrival_time
 from visits;
 
--- Quais são os museus que estão abertos à noite?
+-- Quais sï¿½o os museus que estï¿½o abertos ï¿½ noite?
 select attraction_name
 from museums inner join attractions using(attraction_id) inner join schedules_of using(attraction_id)
 ; -- TODO
@@ -1156,13 +1172,13 @@ from museums inner join attractions using(attraction_id) inner join schedules_of
 select attraction_name, calc_ratings(attraction_id) / calc_number_ratings(attraction_id) as "Average Rating"
 from attractions;
 
--- Quais os nomes e localizações das atrações cuja avaliação geral é igual ou superior a 4?
+-- Quais os nomes e localizaï¿½ï¿½es das atraï¿½ï¿½es cuja avaliaï¿½ï¿½o geral ï¿½ igual ou superior a 4?
 select attraction_name,  latitude, longitude
 from attractions
 where (calc_ratings(attraction_id) / calc_number_ratings(attraction_id)) >= 4;
 
--- Quais as atrações visitadas por todos os turistas que já visitaram a atração X,
--- dizendo para cada atração o nome, a classificação geral, o contacto telefónico e o website? 
+-- Quais as atraï¿½ï¿½es visitadas por todos os turistas que jï¿½ visitaram a atraï¿½ï¿½o X,
+-- dizendo para cada atraï¿½ï¿½o o nome, a classificaï¿½ï¿½o geral, o contacto telefï¿½nico e o website? 
 select distinct X.attraction_name, calc_ratings(X.attraction_id) / calc_number_ratings(X.attraction_id) as "Average Rating", 
                                                 X.attraction_phone as "Phone", X.attraction_website as "Website"
 from attractions inner join visits using(attraction_id) as X;

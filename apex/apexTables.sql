@@ -109,7 +109,7 @@ create table reviews(
     constraint fk_reviewVisit foreign key(arrival_time, tourist_id, attraction_id)
         references visits(arrival_time, tourist_id, attraction_id)
         on delete cascade,
-        constraint fk_reviewTourist foreign key(tourist_id) references tourists(tourist_id),
+    constraint fk_reviewTourist foreign key(tourist_id) references tourists(tourist_id),
     constraint fk_reviewAtr foreign key(attraction_id) references attractions(attraction_id),
     constraint pk_review primary key(arrival_time, tourist_id, attraction_id, review_date),
     constraint ratingLimit check(rating >= 1 and rating <= 5),
@@ -618,6 +618,22 @@ create or replace trigger insert_schedules_of
     for each row
     declare counter number;
     begin
+        -- Normalize timestamp for "time-only" storage
+        select to_timestamp('0001-01-01' || ' ' || to_char(:new.opening_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+        into :new.opening_time
+        from dual;
+
+        select to_timestamp('0001-01-01' || ' ' || to_char(:new.closing_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+        into :new.closing_time
+        from dual;
+
+        if (:new.opening_time > :new.closing_time) then
+            select to_timestamp('0001-01-02' || ' ' || to_char(:new.closing_time, 'HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS')
+            into :new.closing_time
+            from dual;
+        end if;
+
+        -- Find previous uses of this schedule
         select count(*)
         into counter
         from schedules
@@ -1144,6 +1160,7 @@ values (timestamp '2019-06-01 15:03:30', timestamp '2019-06-01 15:04:30', 9 ,seq
 insert into reviews(review_date, rating, review_text, language, arrival_time, tourist_id,  attraction_id)
 values (date '2019-06-04', 3, 'review FAKE3 tour9', 'espanhol', timestamp '2019-06-01 15:03:30', 9, seq_attr_id.currval);
 
+-- Functions
 create or replace FUNCTION calc_number_ratings(attraction NUMBER) RETURN NUMBER
 IS
 numberOfRatings NUMBER;
