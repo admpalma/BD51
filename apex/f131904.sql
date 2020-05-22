@@ -28,22 +28,22 @@ prompt APPLICATION 131904 - BD51-Project
 -- Application Export:
 --   Application:     131904
 --   Name:            BD51-Project
---   Date and Time:   13:38 Thursday May 21, 2020
+--   Date and Time:   20:34 Friday May 22, 2020
 --   Exported By:     JLO.SOUSA@CAMPUS.FCT.UNL.PT
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                     16
+--     Pages:                     23
 --       Items:                   74
 --       Validations:              3
 --       Processes:               14
---       Regions:                 39
+--       Regions:                 53
 --       Buttons:                 25
 --     Shared Components:
 --       Logic:
 --       Navigation:
 --         Lists:                  2
 --         Breadcrumbs:            1
---           Entries:             14
+--           Entries:             21
 --       Security:
 --         Authentication:         1
 --       User Interface:
@@ -107,7 +107,7 @@ wwv_flow_api.create_flow(
 ,p_csv_encoding=>'Y'
 ,p_friendly_url=>'N'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200521132420'
+,p_last_upd_yyyymmddhh24miss=>'20200522193938'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_ui_type_name => null
 );
@@ -126,7 +126,7 @@ wwv_flow_api.create_list_item(
 ,p_list_item_link_text=>'Home'
 ,p_list_item_link_target=>'f?p=&APP_ID.:1:&APP_SESSION.::&DEBUG.:'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'1,2,4,2,2,5,10,7,7,9,9,15'
+,p_list_item_current_for_pages=>'1,2,4,2,2,5,10,7,7,9,9,15,16,17,17,18,19,20,21,22'
 );
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(19094336840116941039)
@@ -138,6 +138,33 @@ wwv_flow_api.create_list_item(
 ,p_list_item_current_for_pages=>'4'
 );
 wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(19120017913261864538)
+,p_list_item_display_sequence=>50
+,p_list_item_link_text=>'Restaurants'
+,p_list_item_link_target=>'f?p=&APP_ID.:5:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(19094336840116941039)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'5'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(17560701287703572024)
+,p_list_item_display_sequence=>60
+,p_list_item_link_text=>'Museums'
+,p_list_item_link_target=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(19094336840116941039)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'7,8'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(17590467522533786439)
+,p_list_item_display_sequence=>70
+,p_list_item_link_text=>'Hotels'
+,p_list_item_link_target=>'f?p=&APP_ID.:9:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(19094336840116941039)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'9,10'
+);
+wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(19119689714199757202)
 ,p_list_item_display_sequence=>40
 ,p_list_item_link_text=>'Tourists'
@@ -147,31 +174,83 @@ wwv_flow_api.create_list_item(
 ,p_list_item_current_for_pages=>'2,3'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(19120017913261864538)
-,p_list_item_display_sequence=>50
-,p_list_item_link_text=>'Restaurants'
-,p_list_item_link_target=>'f?p=&APP_ID.:5:&SESSION.::&DEBUG.'
+ p_id=>wwv_flow_api.id(17981700106066133355)
+,p_list_item_display_sequence=>80
+,p_list_item_link_text=>'Visits'
+,p_list_item_link_target=>'f?p=&APP_ID.:11:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_api.id(19085281958875356549)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'5'
+,p_list_item_current_type=>'TARGET_PAGE'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(17560701287703572024)
-,p_list_item_display_sequence=>60
-,p_list_item_link_text=>'Museums'
-,p_list_item_link_target=>'f?p=&APP_ID.:7:&APP_SESSION.::&DEBUG.:::'
-,p_parent_list_item_id=>wwv_flow_api.id(19085281958875356549)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'7,8'
+ p_id=>wwv_flow_api.id(17982085516195142048)
+,p_list_item_display_sequence=>90
+,p_list_item_link_text=>'Reviews'
+,p_list_item_link_target=>'f?p=&APP_ID.:13:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(17981700106066133355)
+,p_list_item_current_type=>'TARGET_PAGE'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(17590467522533786439)
-,p_list_item_display_sequence=>70
-,p_list_item_link_text=>'Hotels'
-,p_list_item_link_target=>'f?p=&APP_ID.:9:&APP_SESSION.::&DEBUG.:::'
+ p_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_display_sequence=>100
+,p_list_item_link_text=>'Queries'
+,p_list_item_link_target=>'f?p=&APP_ID.:16:&APP_SESSION.::&DEBUG.:::'
 ,p_parent_list_item_id=>wwv_flow_api.id(19085281958875356549)
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'9,10'
+,p_list_item_current_for_pages=>'16'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18253762987039945894)
+,p_list_item_display_sequence=>110
+,p_list_item_link_text=>'Query 1'
+,p_list_item_link_target=>'f?p=&APP_ID.:17:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'17'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18257896620981501624)
+,p_list_item_display_sequence=>120
+,p_list_item_link_text=>'Query 2'
+,p_list_item_link_target=>'f?p=&APP_ID.:18:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'18'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18258284393010058341)
+,p_list_item_display_sequence=>130
+,p_list_item_link_text=>'Query 3'
+,p_list_item_link_target=>'f?p=&APP_ID.:19:&APP_SESSION.::&DEBUG.:::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'19'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18261660867473583739)
+,p_list_item_display_sequence=>140
+,p_list_item_link_text=>'Query 4'
+,p_list_item_link_target=>'f?p=&APP_ID.:20:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'20'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18264697760134155915)
+,p_list_item_display_sequence=>150
+,p_list_item_link_text=>'Query 5'
+,p_list_item_link_target=>'f?p=&APP_ID.:21:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'21'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(18265139991666651475)
+,p_list_item_display_sequence=>160
+,p_list_item_link_text=>'Query 6'
+,p_list_item_link_target=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(18240181738990664404)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'22'
 );
 end;
 /
@@ -438,6 +517,55 @@ wwv_flow_api.create_menu_option(
 ,p_short_name=>'Create Review'
 ,p_link=>'f?p=&APP_ID.:14:&APP_SESSION.::&DEBUG.:::'
 ,p_page_id=>14
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18240182840239664407)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Queries'
+,p_link=>'f?p=&APP_ID.:16:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>16
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18253768625445945906)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 1'
+,p_link=>'f?p=&APP_ID.:17:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>17
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18257903600724501638)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 2'
+,p_link=>'f?p=&APP_ID.:18:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>18
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18258287236995058356)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 3'
+,p_link=>'f?p=&APP_ID.:19:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>19
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18261663790782583746)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 4'
+,p_link=>'f?p=&APP_ID.:20:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>20
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18264803478095155971)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 5'
+,p_link=>'f?p=&APP_ID.:21:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>21
+);
+wwv_flow_api.create_menu_option(
+ p_id=>wwv_flow_api.id(18265145625264651484)
+,p_parent_id=>wwv_flow_api.id(19085282225545356549)
+,p_short_name=>'Query 6'
+,p_link=>'f?p=&APP_ID.:22:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>22
 );
 wwv_flow_api.create_menu_option(
  p_id=>wwv_flow_api.id(19085282225545356549)
@@ -9181,7 +9309,7 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520211445'
+,p_last_upd_yyyymmddhh24miss=>'20200521175607'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17615719543733426209)
@@ -9214,8 +9342,6 @@ wwv_flow_api.create_page_plug(
 ''))
 ,p_plug_source_type=>'NATIVE_IR'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_prn_content_disposition=>'ATTACHMENT'
-,p_prn_document_header=>'APEX'
 ,p_prn_units=>'INCHES'
 ,p_prn_paper_size=>'LETTER'
 ,p_prn_width=>11
@@ -9246,7 +9372,7 @@ wwv_flow_api.create_page_plug(
 ,p_prn_border_color=>'#666666'
 );
 wwv_flow_api.create_worksheet(
- p_id=>wwv_flow_api.id(17615720428795426218)
+ p_id=>wwv_flow_api.id(17551801486288375114)
 ,p_max_row_count=>'1000000'
 ,p_pagination_type=>'ROWS_X_TO_Y'
 ,p_pagination_display_pos=>'BOTTOM_RIGHT'
@@ -9255,19 +9381,19 @@ wwv_flow_api.create_worksheet(
 ,p_show_notify=>'Y'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLS:PDF:RTF'
 ,p_owner=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_internal_uid=>17615720428795426218
+,p_internal_uid=>17551801486288375114
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615720582373426219)
+ p_id=>wwv_flow_api.id(17551801560461375115)
 ,p_db_column_name=>'TOURIST_ID'
 ,p_display_order=>10
 ,p_column_identifier=>'A'
 ,p_column_label=>'Tourist Id'
 ,p_column_type=>'NUMBER'
-,p_column_alignment=>'RIGHT'
+,p_display_text_as=>'HIDDEN'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615720663369426220)
+ p_id=>wwv_flow_api.id(17551801671722375116)
 ,p_db_column_name=>'TOURIST_NAME'
 ,p_display_order=>20
 ,p_column_identifier=>'B'
@@ -9277,7 +9403,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615720791161426221)
+ p_id=>wwv_flow_api.id(17551801768979375117)
 ,p_db_column_name=>'BIRTH_DATE'
 ,p_display_order=>30
 ,p_column_identifier=>'C'
@@ -9287,7 +9413,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615720860574426222)
+ p_id=>wwv_flow_api.id(17551801856879375118)
 ,p_db_column_name=>'NIF'
 ,p_display_order=>40
 ,p_column_identifier=>'D'
@@ -9295,7 +9421,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(17615720996423426223)
+ p_id=>wwv_flow_api.id(17551801943117375119)
 ,p_db_column_name=>'NATIONALITY'
 ,p_display_order=>50
 ,p_column_identifier=>'E'
@@ -9303,10 +9429,10 @@ wwv_flow_api.create_worksheet_column(
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_rpt(
- p_id=>wwv_flow_api.id(17669597226246643010)
+ p_id=>wwv_flow_api.id(17979402806303545459)
 ,p_application_user=>'APXWS_DEFAULT'
 ,p_report_seq=>10
-,p_report_alias=>'176695973'
+,p_report_alias=>'179794029'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_report_columns=>'TOURIST_ID:TOURIST_NAME:BIRTH_DATE:NIF:NATIONALITY'
@@ -9325,7 +9451,7 @@ wwv_flow_api.create_page_plug(
 );
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(19119693203721757211)
-,p_button_sequence=>30
+,p_button_sequence=>10
 ,p_button_plug_id=>wwv_flow_api.id(19119690755595757203)
 ,p_button_name=>'CREATE'
 ,p_button_action=>'REDIRECT_PAGE'
@@ -11255,11 +11381,11 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520195948'
+,p_last_upd_yyyymmddhh24miss=>'20200521215858'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17604754330900235158)
-,p_plug_name=>'Report 1'
+,p_plug_name=>'Visits'
 ,p_region_template_options=>'#DEFAULT#'
 ,p_plug_template=>wwv_flow_api.id(19085246444305356507)
 ,p_plug_display_sequence=>10
@@ -11277,7 +11403,36 @@ wwv_flow_api.create_page_plug(
 'where :P11_TOURISTS = ''-1'' or (nvl(tourist_id, ''-1'') = nvl(:P11_TOURISTS, ''-1''));'))
 ,p_plug_source_type=>'NATIVE_IR'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_prn_page_header=>'Report 1'
+,p_prn_content_disposition=>'ATTACHMENT'
+,p_prn_document_header=>'APEX'
+,p_prn_units=>'INCHES'
+,p_prn_paper_size=>'LETTER'
+,p_prn_width=>11
+,p_prn_height=>8.5
+,p_prn_orientation=>'HORIZONTAL'
+,p_prn_page_header=>'Visits'
+,p_prn_page_header_font_color=>'#000000'
+,p_prn_page_header_font_family=>'Helvetica'
+,p_prn_page_header_font_weight=>'normal'
+,p_prn_page_header_font_size=>'12'
+,p_prn_page_footer_font_color=>'#000000'
+,p_prn_page_footer_font_family=>'Helvetica'
+,p_prn_page_footer_font_weight=>'normal'
+,p_prn_page_footer_font_size=>'12'
+,p_prn_header_bg_color=>'#EEEEEE'
+,p_prn_header_font_color=>'#000000'
+,p_prn_header_font_family=>'Helvetica'
+,p_prn_header_font_weight=>'bold'
+,p_prn_header_font_size=>'10'
+,p_prn_body_bg_color=>'#FFFFFF'
+,p_prn_body_font_color=>'#000000'
+,p_prn_body_font_family=>'Helvetica'
+,p_prn_body_font_weight=>'normal'
+,p_prn_body_font_size=>'10'
+,p_prn_border_width=>.5
+,p_prn_page_header_alignment=>'CENTER'
+,p_prn_page_footer_alignment=>'CENTER'
+,p_prn_border_color=>'#666666'
 );
 wwv_flow_api.create_worksheet(
  p_id=>wwv_flow_api.id(17604754786285235158)
@@ -11401,7 +11556,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520184521'
+,p_last_upd_yyyymmddhh24miss=>'20200521174059'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17604746380099235148)
@@ -11571,19 +11726,23 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>40
 ,p_item_plug_id=>wwv_flow_api.id(17604746380099235148)
 ,p_item_source_plug_id=>wwv_flow_api.id(17604746380099235148)
-,p_use_cache_before_default=>'NO'
-,p_prompt=>'Tourist Id'
+,p_prompt=>'Tourist '
 ,p_source=>'TOURIST_ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>255
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_named_lov=>'TOURISTS'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select tourist_name, tourist_id',
+'from tourists',
+'order by tourist_id'))
+,p_lov_display_null=>'YES'
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_03=>'right'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(17604749033498235152)
@@ -11593,19 +11752,23 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_api.id(17604746380099235148)
 ,p_item_source_plug_id=>wwv_flow_api.id(17604746380099235148)
-,p_use_cache_before_default=>'NO'
-,p_prompt=>'Attraction Id'
+,p_prompt=>'Attraction'
 ,p_source=>'ATTRACTION_ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>255
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_named_lov=>'ATTRACTIONS'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select attraction_name, attraction_id',
+'from attractions',
+'order by attraction_name;'))
+,p_lov_display_null=>'YES'
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_03=>'right'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_validation(
  p_id=>wwv_flow_api.id(17604747578192235150)
@@ -11662,7 +11825,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200521132420'
+,p_last_upd_yyyymmddhh24miss=>'20200521162224'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17611935017579383603)
@@ -11820,7 +11983,7 @@ wwv_flow_api.create_page_plug(
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
 ,p_plug_new_grid_row=>false
-,p_plug_grid_column_span=>2
+,p_plug_grid_column_span=>4
 ,p_plug_display_point=>'BODY'
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
@@ -11977,7 +12140,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520191005'
+,p_last_upd_yyyymmddhh24miss=>'20200521174020'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17611925253099383588)
@@ -12123,19 +12286,15 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>30
 ,p_item_plug_id=>wwv_flow_api.id(17611925253099383588)
 ,p_item_source_plug_id=>wwv_flow_api.id(17611925253099383588)
-,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Rating'
 ,p_source=>'RATING'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>255
-,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
+,p_display_as=>'NATIVE_STAR_RATING'
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_03=>'right'
+,p_attribute_01=>'5'
+,p_attribute_02=>'Y'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(17611926850113383592)
@@ -12169,22 +12328,23 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_api.id(17611925253099383588)
 ,p_item_source_plug_id=>wwv_flow_api.id(17611925253099383588)
-,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Language'
 ,p_source=>'LANGUAGE'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>20
-,p_label_alignment=>'RIGHT'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_named_lov=>'LANGUAGES'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select language as a, language as b',
+'  from languages',
+'order by language'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_01=>'N'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
 ,p_attribute_02=>'N'
-,p_attribute_03=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'NONE'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(17611927621871383594)
@@ -12218,19 +12378,23 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(17611925253099383588)
 ,p_item_source_plug_id=>wwv_flow_api.id(17611925253099383588)
-,p_use_cache_before_default=>'NO'
-,p_prompt=>'Tourist Id'
+,p_prompt=>'Tourist'
 ,p_source=>'TOURIST_ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>255
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_named_lov=>'TOURISTS'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select tourist_name, tourist_id',
+'from tourists',
+'order by tourist_id'))
+,p_lov_display_null=>'YES'
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_03=>'right'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(17611928850185383596)
@@ -12240,19 +12404,23 @@ wwv_flow_api.create_page_item(
 ,p_item_sequence=>80
 ,p_item_plug_id=>wwv_flow_api.id(17611925253099383588)
 ,p_item_source_plug_id=>wwv_flow_api.id(17611925253099383588)
-,p_use_cache_before_default=>'NO'
-,p_prompt=>'Attraction Id'
+,p_prompt=>'Attraction'
 ,p_source=>'ATTRACTION_ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_NUMBER_FIELD'
-,p_cSize=>32
-,p_cMaxlength=>255
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_named_lov=>'ATTRACTIONS'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select attraction_name, attraction_id',
+'from attractions',
+'order by attraction_name;'))
+,p_lov_display_null=>'YES'
 ,p_cHeight=>1
-,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(19085269472610356532)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_03=>'right'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'NONE'
+,p_attribute_02=>'N'
 );
 wwv_flow_api.create_page_validation(
  p_id=>wwv_flow_api.id(17611928195325383595)
@@ -12292,13 +12460,13 @@ begin
 wwv_flow_api.create_page(
  p_id=>15
 ,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
-,p_name=>'Add Pictures'
-,p_alias=>'ADD-PICTURES'
-,p_step_title=>'Add Pictures'
+,p_name=>'Edit Pictures'
+,p_alias=>'EDIT-PICTURES'
+,p_step_title=>'Edit Pictures'
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
-,p_last_upd_yyyymmddhh24miss=>'20200520225940'
+,p_last_upd_yyyymmddhh24miss=>'20200521173000'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(17731370100304682274)
@@ -12419,12 +12587,8 @@ wwv_flow_api.create_region_column(
 ,p_item_type=>'NATIVE_TEXT_FIELD'
 ,p_heading=>'Attraction Name'
 ,p_heading_alignment=>'LEFT'
-,p_display_sequence=>60
+,p_display_sequence=>20
 ,p_value_alignment=>'LEFT'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_03=>'N'
-,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'BOTH'
 ,p_is_required=>true
 ,p_max_length=>30
@@ -12444,39 +12608,6 @@ wwv_flow_api.create_region_column(
 ,p_include_in_export=>true
 );
 wwv_flow_api.create_region_column(
- p_id=>wwv_flow_api.id(17731375662422682330)
-,p_name=>'ATTRACTION_DESCR'
-,p_source_type=>'DB_COLUMN'
-,p_source_expression=>'ATTRACTION_DESCR'
-,p_data_type=>'VARCHAR2'
-,p_is_query_only=>false
-,p_item_type=>'NATIVE_TEXTAREA'
-,p_heading=>'Attraction Descr'
-,p_heading_alignment=>'LEFT'
-,p_display_sequence=>70
-,p_value_alignment=>'LEFT'
-,p_attribute_01=>'Y'
-,p_attribute_02=>'N'
-,p_attribute_03=>'N'
-,p_attribute_04=>'BOTH'
-,p_is_required=>true
-,p_max_length=>530
-,p_enable_filter=>true
-,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
-,p_filter_is_required=>false
-,p_filter_text_case=>'MIXED'
-,p_filter_exact_match=>true
-,p_filter_lov_type=>'NONE'
-,p_use_as_row_header=>false
-,p_enable_sort_group=>false
-,p_enable_control_break=>false
-,p_enable_hide=>true
-,p_enable_pivot=>false
-,p_is_primary_key=>false
-,p_duplicate_value=>true
-,p_include_in_export=>true
-);
-wwv_flow_api.create_region_column(
  p_id=>wwv_flow_api.id(17731376277853682331)
 ,p_name=>'ATTRACTION_PHONE'
 ,p_source_type=>'DB_COLUMN'
@@ -12486,12 +12617,8 @@ wwv_flow_api.create_region_column(
 ,p_item_type=>'NATIVE_TEXT_FIELD'
 ,p_heading=>'Attraction Phone'
 ,p_heading_alignment=>'LEFT'
-,p_display_sequence=>80
+,p_display_sequence=>60
 ,p_value_alignment=>'LEFT'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_03=>'N'
-,p_attribute_04=>'TEXT'
 ,p_attribute_05=>'BOTH'
 ,p_is_required=>true
 ,p_max_length=>13
@@ -12520,7 +12647,7 @@ wwv_flow_api.create_region_column(
 ,p_item_type=>'NATIVE_TEXTAREA'
 ,p_heading=>'Attraction Website'
 ,p_heading_alignment=>'LEFT'
-,p_display_sequence=>90
+,p_display_sequence=>70
 ,p_value_alignment=>'LEFT'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
@@ -12532,11 +12659,9 @@ wwv_flow_api.create_region_column(
 ,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
 ,p_filter_is_required=>false
 ,p_filter_text_case=>'MIXED'
-,p_filter_exact_match=>true
 ,p_filter_lov_type=>'NONE'
 ,p_use_as_row_header=>false
 ,p_enable_sort_group=>false
-,p_enable_control_break=>false
 ,p_enable_hide=>true
 ,p_enable_pivot=>false
 ,p_is_primary_key=>false
@@ -12614,14 +12739,6 @@ wwv_flow_api.create_ig_report_column(
 ,p_view_id=>wwv_flow_api.id(17731371963462682277)
 ,p_display_seq=>4
 ,p_column_id=>wwv_flow_api.id(17731375006113682329)
-,p_is_visible=>true
-,p_is_frozen=>false
-);
-wwv_flow_api.create_ig_report_column(
- p_id=>wwv_flow_api.id(17731376010928682331)
-,p_view_id=>wwv_flow_api.id(17731371963462682277)
-,p_display_seq=>5
-,p_column_id=>wwv_flow_api.id(17731375662422682330)
 ,p_is_visible=>true
 ,p_is_frozen=>false
 );
@@ -12814,7 +12931,7 @@ wwv_flow_api.create_interactive_grid(
  p_id=>wwv_flow_api.id(17731378267148682339)
 ,p_internal_uid=>17731378267148682339
 ,p_is_editable=>true
-,p_edit_operations=>'i:d'
+,p_edit_operations=>'i:u:d'
 ,p_lost_update_check_type=>'VALUES'
 ,p_add_row_if_empty=>true
 ,p_submit_checked_rows=>false
@@ -12903,14 +13020,14 @@ wwv_flow_api.create_ig_report_column(
 wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(17731370539276682275)
 ,p_button_sequence=>10
-,p_button_plug_id=>wwv_flow_api.id(17731370100304682274)
+,p_button_plug_id=>wwv_flow_api.id(17731377718612682338)
 ,p_button_name=>'SAVE'
 ,p_button_action=>'SUBMIT'
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_api.id(19085269788252356533)
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Save'
-,p_button_position=>'REGION_TEMPLATE_EDIT'
+,p_button_position=>'REGION_TEMPLATE_NEXT'
 );
 wwv_flow_api.create_page_process(
  p_id=>wwv_flow_api.id(17731377442573682332)
@@ -12939,6 +13056,533 @@ wwv_flow_api.create_page_process(
 ,p_attribute_08=>'Y'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_api.id(17731370539276682275)
+);
+end;
+/
+prompt --application/pages/page_00016
+begin
+wwv_flow_api.create_page(
+ p_id=>16
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Queries'
+,p_alias=>'QUERIES'
+,p_step_title=>'Queries'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522160452'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18240182401665664406)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18246334451373195305)
+,p_plug_name=>'Queries'
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_api.id(19085246928241356507)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_plug_source=>'The children of this page have all the interesting queries.'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+end;
+/
+prompt --application/pages/page_00017
+begin
+wwv_flow_api.create_page(
+ p_id=>17
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 1'
+,p_alias=>'QUERY-1'
+,p_step_title=>'Query 1'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522154838'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(18253763510397945895)
+,p_name=>unistr('Quais as avalia\00E7\00F5es escritas em portugu\00EAs cujo rating seja maior ou igual que 3, dizendo para cada avalia\00E7\00E3o a atra\00E7\00E3o, o coment\00E1rio e o nome do autor? ')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select attraction_name, review_text, tourist_name',
+'from reviews inner join tourists using (tourist_id) inner join attractions using (attraction_id)',
+'where language = ''portugues'' and rating >= 3;',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18253763914685945898)
+,p_query_column_id=>1
+,p_column_alias=>'ATTRACTION_NAME'
+,p_column_display_sequence=>1
+,p_column_heading=>'Attraction Name'
+,p_heading_alignment=>'LEFT'
+,p_default_sort_column_sequence=>1
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18253764338388945899)
+,p_query_column_id=>2
+,p_column_alias=>'REVIEW_TEXT'
+,p_column_display_sequence=>2
+,p_column_heading=>'Review Text'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18253764754321945899)
+,p_query_column_id=>3
+,p_column_alias=>'TOURIST_NAME'
+,p_column_display_sequence=>3
+,p_column_heading=>'Tourist Name'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18253768253976945906)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+end;
+/
+prompt --application/pages/page_00018
+begin
+wwv_flow_api.create_page(
+ p_id=>18
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 2'
+,p_alias=>'QUERY-2'
+,p_step_title=>'Query 2'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522160518'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(18257897238030501625)
+,p_name=>unistr('Quais os turistas que tiveram uma estadia de mais de 4 dias no hotel \2018Palacio do Governador\2019, para cada turista mencionando o nome, a nacionalidade, o NIF e a data de nascimento?')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select tourist_name as "Name", nationality, nif, birth_date',
+'from tourists inner join visits using(tourist_id) ',
+'  inner join hotels using(attraction_id)',
+'              	  inner join attractions using(attraction_id)',
+'where attraction_name = ''Palacio do Governador'' and departure_time - arrival_time >= interval ''4'' day;',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18257897635793501627)
+,p_query_column_id=>1
+,p_column_alias=>'Name'
+,p_column_display_sequence=>1
+,p_column_heading=>'Name'
+,p_heading_alignment=>'LEFT'
+,p_default_sort_column_sequence=>1
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18257898086632501628)
+,p_query_column_id=>2
+,p_column_alias=>'NATIONALITY'
+,p_column_display_sequence=>2
+,p_column_heading=>'Nationality'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18257898483347501628)
+,p_query_column_id=>3
+,p_column_alias=>'NIF'
+,p_column_display_sequence=>3
+,p_column_heading=>'Nif'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18257898804774501629)
+,p_query_column_id=>4
+,p_column_alias=>'BIRTH_DATE'
+,p_column_display_sequence=>4
+,p_column_heading=>'Birth Date'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18257903233056501637)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+end;
+/
+prompt --application/pages/page_00019
+begin
+wwv_flow_api.create_page(
+ p_id=>19
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 3'
+,p_alias=>'QUERY-3'
+,p_step_title=>'Query 3'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522173341'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(36516178226969555623)
+,p_name=>unistr('Quais s\00E3o os museus que est\00E3o abertos \00E0 noite? (20h \00E0s 23h)')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select distinct attraction_name',
+'from museums inner join attractions using(attraction_id)',
+'    inner join schedules_of using(attraction_id)',
+'where schedules_of.opening_time <= timestamp ''0001-01-01 20:00:00'' and schedules_of.closing_time >= timestamp ''0001-01-01 23:00:00'';',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18246334331662195304)
+,p_query_column_id=>1
+,p_column_alias=>'ATTRACTION_NAME'
+,p_column_display_sequence=>1
+,p_column_heading=>'Attraction Name'
+,p_use_as_row_header=>'N'
+,p_disable_sort_column=>'N'
+,p_derived_column=>'N'
+,p_include_in_export=>'Y'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(36516184221995555635)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+end;
+/
+prompt --application/pages/page_00020
+begin
+wwv_flow_api.create_page(
+ p_id=>20
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 4'
+,p_alias=>'QUERY-4'
+,p_step_title=>'Query 4'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522193938'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(18261661401817583740)
+,p_name=>unistr('Para cada atra\00E7\00E3o (nome) qual a sua classifica\00E7\00E3o geral, por ordem decrescente de classifica\00E7\00E3o geral?')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select attraction_name, avg(rating) as averageRating',
+'from attractions inner join reviews using (attraction_id)',
+'group by attraction_name',
+'order by averageRating desc;',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18261661880190583741)
+,p_query_column_id=>1
+,p_column_alias=>'ATTRACTION_NAME'
+,p_column_display_sequence=>1
+,p_column_heading=>'Attraction Name'
+,p_heading_alignment=>'LEFT'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18261662246651583744)
+,p_query_column_id=>2
+,p_column_alias=>'AVERAGERATING'
+,p_column_display_sequence=>2
+,p_column_heading=>'Average Rating'
+,p_use_as_row_header=>'N'
+,p_heading_alignment=>'LEFT'
+,p_derived_column=>'N'
+,p_include_in_export=>'Y'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18261663378089583746)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+end;
+/
+prompt --application/pages/page_00021
+begin
+wwv_flow_api.create_page(
+ p_id=>21
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 5'
+,p_alias=>'QUERY-5'
+,p_step_title=>'Query 5'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522162158'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(18264698341316155916)
+,p_name=>unistr('Quais os nomes e localiza\00E7\00F5es das atra\00E7\00F5es cuja avalia\00E7\00E3o geral \00E9 igual ou superior a 4?')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select attraction_name,  latitude, longitude',
+'from attractions',
+'where (calc_ratings(attraction_id) / calc_number_ratings(attraction_id))',
+'>= 4;',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18264698781480155917)
+,p_query_column_id=>1
+,p_column_alias=>'ATTRACTION_NAME'
+,p_column_display_sequence=>1
+,p_column_heading=>'Attraction Name'
+,p_heading_alignment=>'LEFT'
+,p_default_sort_column_sequence=>1
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18264699103274155918)
+,p_query_column_id=>2
+,p_column_alias=>'LATITUDE'
+,p_column_display_sequence=>2
+,p_column_heading=>'Latitude'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18264699545714155918)
+,p_query_column_id=>3
+,p_column_alias=>'LONGITUDE'
+,p_column_display_sequence=>3
+,p_column_heading=>'Longitude'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18264803066637155970)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
+);
+end;
+/
+prompt --application/pages/page_00022
+begin
+wwv_flow_api.create_page(
+ p_id=>22
+,p_user_interface_id=>wwv_flow_api.id(19085280525547356544)
+,p_name=>'Query 6'
+,p_alias=>'QUERY-6'
+,p_step_title=>'Query 6'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'JLO.SOUSA@CAMPUS.FCT.UNL.PT'
+,p_last_upd_yyyymmddhh24miss=>'20200522162145'
+);
+wwv_flow_api.create_report_region(
+ p_id=>wwv_flow_api.id(18265140583508651476)
+,p_name=>unistr('Quais as atra\00E7\00F5es visitadas por todos os turistas que j\00E1 visitaram a atra\00E7\00E3o \2018Restaurante Fake News II\2019, dizendo para cada atra\00E7\00E3o o nome, o contacto telef\00F3nico e o website?')
+,p_template=>wwv_flow_api.id(19085246928241356507)
+,p_display_sequence=>10
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_component_template_options=>'#DEFAULT#:t-Report--altRowsDefault:t-Report--rowHighlight'
+,p_display_point=>'BODY'
+,p_source_type=>'NATIVE_SQL_REPORT'
+,p_query_type=>'SQL'
+,p_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select distinct attraction_name,attraction_phone, attraction_website',
+'from visits X, attractions A',
+'where not exists (',
+'    (select tourist_id',
+'    from visits inner join attractions using(attraction_id) where attraction_name = ''Restaurante Fake News II'')',
+'    minus',
+'    (select Y.tourist_id',
+'    from visits Y',
+'    where X.attraction_id = Y.attraction_id)',
+') and X.attraction_id = A.attraction_id and attraction_name != ''Restaurante Fake News II'';',
+''))
+,p_ajax_enabled=>'Y'
+,p_query_row_template=>wwv_flow_api.id(19085256963152356518)
+,p_query_num_rows=>15
+,p_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_query_no_data_found=>'no data found'
+,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
+,p_query_row_count_max=>500
+,p_csv_output=>'Y'
+,p_csv_output_link_text=>'Download'
+,p_prn_output=>'N'
+,p_prn_format=>'PDF'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18265140910548651477)
+,p_query_column_id=>1
+,p_column_alias=>'ATTRACTION_NAME'
+,p_column_display_sequence=>1
+,p_column_heading=>'Attraction Name'
+,p_heading_alignment=>'LEFT'
+,p_default_sort_column_sequence=>1
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18265141367332651477)
+,p_query_column_id=>2
+,p_column_alias=>'ATTRACTION_PHONE'
+,p_column_display_sequence=>2
+,p_column_heading=>'Attraction Phone'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(18265141770464651478)
+,p_query_column_id=>3
+,p_column_alias=>'ATTRACTION_WEBSITE'
+,p_column_display_sequence=>3
+,p_column_heading=>'Attraction Website'
+,p_heading_alignment=>'LEFT'
+,p_disable_sort_column=>'N'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(18265145219128651483)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(19085251357959356511)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_api.id(19085281872588356547)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_api.id(19085270279864356533)
 );
 end;
 /
