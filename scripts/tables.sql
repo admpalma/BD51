@@ -833,6 +833,8 @@ call insert_museum(to_number('38,72079'), to_number('-9,11705'), 'Museu Nacional
 'Atraves das suas atividades, o museu da a conhecer a historia do Azulejo em Portugal procurando chamar a atencao da sociedade para a necessidade e importancia da protecao daquela que e a express?o artistica diferenciadora da cultura portuguesa no mundo: o Azulejo.',
 '+351218100340' ,'http://www.museudoazulejo.pt/', null, timestamp '2020-01-01 12:31:12', null, 'Azulejo(tema)', 'portugues', date '2001-04-28', date '2001-05-28', timestamp '1997-06-01 10:00:00', timestamp '1997-06-01 12:00:00');
 
+insert into schedules_of (start_date, end_date, opening_time, closing_time, attraction_id) values(date '2001-04-28', date '2001-05-28', timestamp '1997-06-01 19:00:00', timestamp '1997-06-01 23:30:00', seq_attr_id.currval);
+
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2000-06-10 10:28:31', 'Maria Jose', seq_attr_id.currval);
 

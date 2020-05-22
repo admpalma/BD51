@@ -868,6 +868,8 @@ begin insert_museum(38.72079, -9.11705, 'Museu Nacional do Azulejo',
 end;
 /
 
+insert into schedules_of (start_date, end_date, opening_time, closing_time, attraction_id) values(date '2001-04-28', date '2001-05-28', timestamp '1997-06-01 19:00:00', timestamp '1997-06-01 23:30:00', seq_attr_id.currval);
+
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2019-12-24 21:05:27', null, seq_attr_id.currval);
 insert into pictures(picture_descr, picture_date, photographer, attraction_id) values(null, timestamp '2000-06-10 10:28:31', 'Maria Jose', seq_attr_id.currval);
 
